@@ -27,16 +27,17 @@
 
 .primary {
     background-color: var(--primary);
-    color: #ffffff;
+    color: var(--text-primary);
 }
 
 .primary:hover {
     background-color: var(--primary-hover);
+    color: var(--white);
 }
 
 .secondary {
     background-color: var(--secondary);
-    color: #121417;
+    color: var(--text-primary);
 }
 
 .secondary:hover {

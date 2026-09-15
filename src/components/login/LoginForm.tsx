@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 
 import { useAuth } from "../../context/useAuth";
+import { loginSchema } from "../../utils/validationSchemas";
+
+import ButtonLink from "../buttons/Button";
+
 import styles from "./LoginForm.module.css";
 
 interface LoginFormProps {
@@ -15,17 +18,6 @@ interface LoginFormData {
   password: string;
 }
 
-const schema = yup.object({
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .required("Email is required"),
-
-  password: yup
-    .string()
-    .required("Password is required"),
-});
-
 const LoginForm = ({ onClose }: LoginFormProps) => {
   const { login } = useAuth();
 
@@ -35,9 +27,18 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: {
+      errors,
+      isSubmitting,
+    },
   } = useForm<LoginFormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const onSubmit = async (data: LoginFormData) => {
@@ -64,11 +65,18 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
       <form
         className={styles.form}
         onSubmit={handleSubmit(onSubmit)}
+        noValidate
       >
-        <div>
+        <div className={styles.field}>
           <input
             type="email"
             placeholder="Email"
+            autoComplete="email"
+            className={
+              errors.email
+                ? `${styles.input} ${styles.inputError}`
+                : styles.input
+            }
             {...register("email")}
           />
 
@@ -79,10 +87,16 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
           )}
         </div>
 
-        <div>
+        <div className={styles.field}>
           <input
             type="password"
             placeholder="Password"
+            autoComplete="current-password"
+            className={
+              errors.password
+                ? `${styles.input} ${styles.inputError}`
+                : styles.input
+            }
             {...register("password")}
           />
 
@@ -94,16 +108,20 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
         </div>
 
         {firebaseError && (
-          <p className={styles.error}>{firebaseError}</p>
+          <p className={styles.error}>
+            {firebaseError}
+          </p>
         )}
 
-        <button
+        <ButtonLink
+          as="button"
           type="submit"
-          className={styles.submitButton}
+          variant="primary"
           disabled={isSubmitting}
+          className={styles.submitButton}
         >
           {isSubmitting ? "Logging in..." : "Log In"}
-        </button>
+        </ButtonLink>
       </form>
     </>
   );

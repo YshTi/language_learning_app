@@ -21,19 +21,29 @@
 
     border-radius: 30px;
 
-    background-color: #ffffff;
+    background-color: var(--white);
 }
 
 .closeButton {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 16px;
+    right: 16px;
 
     border: none;
     background: transparent;
 
-    font-size: 32px;
-    line-height: 1;
+    padding: 4px;
+    line-height: 0;
 
-    color: #121417;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.closeButton:hover, .closeButton:focus {
+    color: var(--primary);
+}
+
+.closeIcon {
+    width: 32px;
+    height: 32px;
 }
