@@ -8,8 +8,14 @@
   --background: #ffffff;
   --background-secondary: #f8f8f8;
 
-  --primary: #7c83fd;
+  --primary: #9fb7ce;
+  --primary-hover: #87a4bd;
+  
   --secondary: #bfd6ea;
+  --secondary-hover: #a9c8e1;
+
+  --green: #38cd3e;
+  --white: #ffffff;
 
   --border: rgba(18, 20, 23, 0.1);
 

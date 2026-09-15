@@ -1,0 +1,53 @@
+.base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 267px;
+    height: 60px;
+
+    padding: 16px 32px;
+
+    border: none;
+    border-radius: 12px;
+
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        background-color 200ms ease,
+        color 200ms ease,
+        transform 200ms ease;
+}
+
+.primary {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+.primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.secondary {
+    background-color: var(--secondary);
+    color: #121417;
+}
+
+.secondary:hover {
+    background-color: var(--secondary-hover);
+}
+
+.base:active {
+    transform: translateY(1px);
+}
+
+.base:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

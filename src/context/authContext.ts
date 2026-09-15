@@ -1,18 +1,26 @@
 import { createContext } from "react";
-import type { User } from "firebase/auth";
+
+export interface AppUser {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+}
 
 export interface AuthContextType {
-  user: User | null;
+  user: AppUser | null;
   loading: boolean;
+
   register: (
     name: string,
     email: string,
     password: string
   ) => Promise<void>;
+
   login: (
     email: string,
     password: string
   ) => Promise<void>;
+
   logout: () => Promise<void>;
 }
 
