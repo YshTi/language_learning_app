@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 import { useAuth } from "../../context/useAuth";
+import { registerSchema } from "../../utils/validationSchemas";
+
+import ButtonLink from "../buttons/Button";
+
 import styles from "./RegisterForm.module.css";
 
 interface RegisterFormProps {
@@ -16,34 +20,14 @@ interface RegisterFormData {
   password: string;
 }
 
-const registerSchema = yup.object({
-  name: yup
-    .string()
-    .trim()
-    .required("Name is required"),
-
-  email: yup
-    .string()
-    .trim()
-    .email("Enter a valid email")
-    .required("Email is required"),
-
-  password: yup
-    .string()
-    .min(
-      6,
-      "Password must contain at least 6 characters"
-    )
-    .required("Password is required"),
-});
-
-const RegisterForm = ({
-  onClose,
-}: RegisterFormProps) => {
+const RegisterForm = ({ onClose }: RegisterFormProps) => {
   const { register: registerUser } = useAuth();
 
   const [firebaseError, setFirebaseError] =
     useState<string | null>(null);
+
+  const [showPassword, setShowPassword] =
+    useState(false);
 
   const {
     register,
@@ -54,6 +38,8 @@ const RegisterForm = ({
     },
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
     defaultValues: {
       name: "",
       email: "",
@@ -61,9 +47,7 @@ const RegisterForm = ({
     },
   });
 
-  const onSubmit = async (
-    data: RegisterFormData
-  ) => {
+  const onSubmit = async (data: RegisterFormData) => {
     try {
       setFirebaseError(null);
 
@@ -90,9 +74,9 @@ const RegisterForm = ({
       </h2>
 
       <p className={styles.description}>
-        Thank you for your interest in our platform!
-        In order to register, we need some information.
-        Please provide us with the following information.
+        Thank you for your interest in our platform! In order to
+        register, we need some information. Please provide us with
+        the following information.
       </p>
 
       <form
@@ -105,6 +89,11 @@ const RegisterForm = ({
             type="text"
             placeholder="Name"
             autoComplete="name"
+            className={
+              errors.name
+                ? `${styles.input} ${styles.inputError}`
+                : styles.input
+            }
             {...register("name")}
           />
 
@@ -120,6 +109,11 @@ const RegisterForm = ({
             type="email"
             placeholder="Email"
             autoComplete="email"
+            className={
+              errors.email
+                ? `${styles.input} ${styles.inputError}`
+                : styles.input
+            }
             {...register("email")}
           />
 
@@ -131,12 +125,38 @@ const RegisterForm = ({
         </div>
 
         <div className={styles.field}>
-          <input
-            type="password"
-            placeholder="Password"
-            autoComplete="new-password"
-            {...register("password")}
-          />
+          <div className={styles.passwordWrapper}>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              autoComplete="new-password"
+              className={
+                errors.password
+                  ? `${styles.input} ${styles.inputError}`
+                  : styles.input
+              }
+              {...register("password")}
+            />
+
+            <button
+              type="button"
+              className={styles.passwordToggle}
+              onClick={() =>
+                setShowPassword(prev => !prev)
+              }
+              aria-label={
+                showPassword
+                  ? "Hide password"
+                  : "Show password"
+              }
+            >
+              {showPassword ? (
+                <LuEye />
+              ) : (
+                <LuEyeOff />
+              )}
+            </button>
+          </div>
 
           {errors.password && (
             <p className={styles.error}>
@@ -151,15 +171,17 @@ const RegisterForm = ({
           </p>
         )}
 
-        <button
+        <ButtonLink
+          as="button"
           type="submit"
-          className={styles.submitButton}
+          variant="primary"
           disabled={isSubmitting}
+          className={styles.submitButton}
         >
           {isSubmitting
             ? "Creating account..."
             : "Sign Up"}
-        </button>
+        </ButtonLink>
       </form>
     </>
   );
