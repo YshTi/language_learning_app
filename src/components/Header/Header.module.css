@@ -5,8 +5,7 @@
     
     width: 100%;
     padding: 20px 0;
-    background-color: #ffffff;
-    border-bottom: 1px solid var(--border);
+    background-color: var(--background);
 }
 
 .headerContainer {
@@ -21,7 +20,7 @@
 }
 
 .navLink {
-    color: #121417;
+    color: var(--text-primary);
     font-size: 16px;
     font-weight: 400;
     line-height: 1.25;
@@ -57,7 +56,7 @@
     border: none;
     background-color: transparent;
 
-    color: #121417;
+    color: var(--text-primary);
     font-weight: 700;
 
     cursor: pointer;
