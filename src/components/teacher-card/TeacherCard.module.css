@@ -1,0 +1,299 @@
+.card {
+    display: flex;
+    gap: 48px;
+
+    width: 100%;
+    min-height: 328px;
+
+    padding: 24px;
+
+    border-radius: 24px;
+
+    background-color: var(--background);
+}
+
+.avatarWrapper {
+    position: relative;
+
+    flex-shrink: 0;
+
+    width: 120px;
+    height: 120px;
+
+    padding: 9px;
+
+    border: 3px solid var(--secondary);
+    border-radius: 50%;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+}
+
+.onlineIndicator {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+
+    width: 12px;
+    height: 12px;
+
+    border: 2px solid var(--white);
+    border-radius: 50%;
+
+    background-color: var(--green);
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+}
+
+.header {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 24px;
+}
+
+.label {
+    margin-bottom: 8px;
+
+    color: var(--text-secondary);
+}
+
+.name {
+    margin: 0;
+
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1;
+
+    color: var(--text-primary);
+}
+
+.teacherStats {
+    display: flex;
+    align-items: center;
+
+    margin-left: auto;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0 16px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    border-right: 1px solid var(--border);
+}
+
+.stat:first-child {
+    padding-left: 0;
+}
+
+.stat:last-child {
+    border-right: none;
+}
+
+.stat svg {
+    width: 16px;
+    height: 16px;
+}
+
+.starIcon {
+    color: var(--yellow);
+}
+
+.price {
+    color: var(--green);
+    font-weight: 500;
+}
+
+.favoriteButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 26px;
+    height: 26px;
+
+    padding: 0;
+
+    border: none;
+
+    background-color: transparent;
+
+    color: var(--text-primary);
+
+    cursor: pointer;
+}
+
+.favoriteButton svg {
+    width: 26px;
+    height: 26px;
+}
+
+.favoriteButton:disabled {
+    cursor: wait;
+    opacity: 0.6;
+}
+
+.favoriteActive {
+    color: var(--primary);
+}
+
+.details {
+    margin-top: 32px;
+}
+
+.infoRow {
+    margin-bottom: 8px;
+
+    font-weight: 500;
+}
+
+.detailLabel {
+    color: var(--text-secondary);
+}
+
+.languages {
+    text-decoration: underline;
+}
+
+.readMore {
+    margin-top: 8px;
+
+    padding: 0;
+
+    border: none;
+    background: transparent;
+
+    font-weight: 500;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+}
+
+.readMore:hover {
+    color: var(--primary);
+}
+
+.expandedContent {
+    margin-top: 16px;
+}
+
+.experience {
+    margin-bottom: 32px;
+}
+
+.reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    font-weight: 500;
+
+    margin-bottom: 32px;
+}
+
+.reviewHeader {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 16px;
+}
+
+.reviewAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    background-color: var(--secondary);
+}
+
+.reviewerName {
+    color: var(--text-secondary);
+}
+
+.reviewRating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 14px;
+
+    margin-top: 2px;
+}
+
+.reviewRating svg {
+    color: var(--yellow);
+    width: 16px;
+    height: 16px;
+}
+
+.reviewComment {
+    line-height: 1.5;
+
+    color: var(--text-primary);
+}
+
+.levels {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 32px;
+}
+
+.level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    padding: 7px 11px;
+
+    border: 1px solid var(--border);
+    border-radius: 35px;
+    height: 32px;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.14;
+}
+
+.level:first-child {
+    border-color: transparent;
+
+    background-color: var(--secondary);
+}
+
+.bookButton {
+    min-width: 232px;
+
+    margin-top: 32px;
+}

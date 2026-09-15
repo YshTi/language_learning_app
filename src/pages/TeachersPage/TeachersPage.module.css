@@ -1,0 +1,7 @@
+.teachersPage{
+    background-color: var(--background-secondary);
+}
+
+.teachersContainer {
+   max-width: 1184px;
+}
