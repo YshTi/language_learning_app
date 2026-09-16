@@ -20,20 +20,20 @@ import styles from "./TeacherCard.module.css";
 
 interface TeacherCardProps {
   teacher: Teacher;
+  selectedLevel?: string;
   onBookTrial?: () => void;
 }
 
 const TeacherCard = ({
   teacher,
+  selectedLevel = "",
   onBookTrial,
 }: TeacherCardProps) => {
   const { user } = useAuth();
 
-  const [isExpanded, setIsExpanded] =
-    useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const [isFavorite, setIsFavorite] =
-    useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const [isFavoriteLoading, setIsFavoriteLoading] =
     useState(false);
@@ -145,9 +145,7 @@ const TeacherCard = ({
 
             <div className={styles.stat}>
               <FaStar
-                className={
-                  styles.starIcon
-                }
+                className={styles.starIcon}
               />
 
               <span>
@@ -169,12 +167,8 @@ const TeacherCard = ({
 
           <button
             type="button"
-            className={
-              styles.favoriteButton
-            }
-            onClick={
-              handleToggleFavorite
-            }
+            className={styles.favoriteButton}
+            onClick={handleToggleFavorite}
             disabled={isFavoriteLoading}
             aria-label={
               isFavorite
@@ -184,9 +178,7 @@ const TeacherCard = ({
           >
             {isFavorite ? (
               <FaHeart
-                className={
-                  styles.favoriteActive
-                }
+                className={styles.favoriteActive}
               />
             ) : (
               <FaRegHeart />
@@ -197,28 +189,18 @@ const TeacherCard = ({
         <div className={styles.details}>
           <p className={styles.infoRow}>
             <span
-              className={
-                styles.detailLabel
-              }
+              className={styles.detailLabel}
             >
               Speaks:
             </span>{" "}
-            <span
-              className={
-                styles.languages
-              }
-            >
-              {teacher.languages.join(
-                ", "
-              )}
+            <span className={styles.languages}>
+              {teacher.languages.join(", ")}
             </span>
           </p>
 
           <p className={styles.infoRow}>
             <span
-              className={
-                styles.detailLabel
-              }
+              className={styles.detailLabel}
             >
               Lesson Info:
             </span>{" "}
@@ -227,9 +209,7 @@ const TeacherCard = ({
 
           <p className={styles.infoRow}>
             <span
-              className={
-                styles.detailLabel
-              }
+              className={styles.detailLabel}
             >
               Conditions:
             </span>{" "}
@@ -239,9 +219,7 @@ const TeacherCard = ({
           {!isExpanded && (
             <button
               type="button"
-              className={
-                styles.readMore
-              }
+              className={styles.readMore}
               onClick={() =>
                 setIsExpanded(true)
               }
@@ -265,9 +243,7 @@ const TeacherCard = ({
               </p>
 
               <div
-                className={
-                  styles.reviews
-                }
+                className={styles.reviews}
               >
                 {teacher.reviews.map(
                   (review, index) => (
@@ -334,23 +310,30 @@ const TeacherCard = ({
           )}
 
           <ul className={styles.levels}>
-            {teacher.levels.map(level => (
-              <li
-                key={level}
-                className={styles.level}
-              >
-                #{level}
-              </li>
-            ))}
+            {teacher.levels.map((level) => {
+              const isActive =
+                selectedLevel === level;
+
+              return (
+                <li
+                  key={level}
+                  className={`${styles.level} ${
+                    isActive
+                      ? styles.levelActive
+                      : ""
+                  }`}
+                >
+                  #{level}
+                </li>
+              );
+            })}
           </ul>
 
           {isExpanded && (
             <ButtonLink
               as="button"
               variant="primary"
-              className={
-                styles.bookButton
-              }
+              className={styles.bookButton}
               onClick={onBookTrial}
             >
               Book trial lesson

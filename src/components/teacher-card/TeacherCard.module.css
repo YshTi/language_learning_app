@@ -68,6 +68,7 @@
     margin-bottom: 8px;
 
     color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .name {
@@ -286,10 +287,9 @@
     line-height: 1.14;
 }
 
-.level:first-child {
+.levelActive {
     border-color: transparent;
-
-    background-color: var(--secondary);
+    background-color: var(--primary);
 }
 
 .bookButton {

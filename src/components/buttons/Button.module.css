@@ -42,6 +42,7 @@
 
 .secondary:hover {
     background-color: var(--secondary-hover);
+    color: var(--white);
 }
 
 .base:active {

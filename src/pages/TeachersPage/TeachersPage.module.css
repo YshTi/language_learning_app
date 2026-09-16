@@ -1,7 +1,17 @@
 .teachersPage{
+    min-height: calc(100vh - 88px);
     background-color: var(--background-secondary);
 }
 
 .teachersContainer {
-   max-width: 1184px;
+   display: flex;
+   flex-direction: column;
+   
+    max-width: 1184px;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
