@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import { FiBookOpen } from "react-icons/fi";
 import { FaRegHeart, FaHeart } from "react-icons/fa6";
@@ -53,7 +54,9 @@ const TeacherCard = ({
       }
 
       try {
-        const favorites = await getFavorites(user.uid);
+        const favorites = await getFavorites(
+          user.uid
+        );
 
         setIsFavorite(
           favorites.includes(teacher.id)
@@ -71,13 +74,16 @@ const TeacherCard = ({
 
   const handleToggleFavorite = async () => {
     if (!user) {
-      alert(
-        "This functionality is available only for authorized users."
+      toast.error(
+        "Please log in to add teachers to favorites."
       );
       return;
     }
 
     if (!teacher.id) {
+      toast.error(
+        "Could not update favorites. Please try again."
+      );
       return;
     }
 
@@ -91,6 +97,10 @@ const TeacherCard = ({
         );
 
         setIsFavorite(false);
+
+        toast.success(
+          `${teacher.name} ${teacher.surname} was removed from favorites.`
+        );
       } else {
         await addFavorite(
           user.uid,
@@ -98,11 +108,19 @@ const TeacherCard = ({
         );
 
         setIsFavorite(true);
+
+        toast.success(
+          `${teacher.name} ${teacher.surname} was added to favorites.`
+        );
       }
     } catch (error) {
       console.error(
         "Failed to update favorite:",
         error
+      );
+
+      toast.error(
+        "Could not update favorites. Please try again."
       );
     } finally {
       setIsFavoriteLoading(false);

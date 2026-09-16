@@ -4,10 +4,12 @@ import {
   useWatch,
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
 
 import type { Teacher } from "../../types/teacher";
 
 import { bookingSchema } from "../../utils/validationSchemas";
+import { createBooking } from "../../firebase/bookings";
 
 import ButtonLink from "../buttons/Button";
 import FilterSelect from "../filter-select/FilterSelect";
@@ -85,9 +87,10 @@ const BookTrialForm = ({
         ...data,
       };
 
-      console.log(
-        "Trial lesson booking:",
-        bookingData
+      await createBooking(bookingData);
+
+      toast.success(
+        "Your trial lesson request was submitted successfully."
       );
 
       onClose();
@@ -95,6 +98,10 @@ const BookTrialForm = ({
       console.error(
         "Failed to book trial lesson:",
         error
+      );
+
+      toast.error(
+        "Could not submit your booking. Please try again."
       );
     }
   };
@@ -181,9 +188,7 @@ const BookTrialForm = ({
                   className={styles.customRadio}
                 />
 
-                <span>
-                  {reason}
-                </span>
+                <span>{reason}</span>
               </label>
             ))}
           </div>
@@ -256,14 +261,14 @@ const BookTrialForm = ({
         </div>
 
         <ButtonLink
-            as="button"
-            type="submit"
-            variant="primary"
-            disabled={isSubmitting}
-            isLoading={isSubmitting}
-            className={styles.submitButton}
-            >
-            Book
+          as="button"
+          type="submit"
+          variant="primary"
+          disabled={isSubmitting}
+          isLoading={isSubmitting}
+          className={styles.submitButton}
+        >
+          Book
         </ButtonLink>
       </form>
     </>
