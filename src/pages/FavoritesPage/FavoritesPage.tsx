@@ -23,8 +23,6 @@ const FavoritesPage = () => {
 
     const loadFavorites = async () => {
       try {
-        setIsLoading(true);
-
         const [teachers, favoriteIds] = await Promise.all([
           getAllTeachers(),
           getFavorites(user.uid),
@@ -45,10 +43,22 @@ const FavoritesPage = () => {
     loadFavorites();
   }, [user]);
 
+  const handleFavoriteChange = (teacherId: string, isFavorite: boolean) => {
+    if (isFavorite) {
+      return;
+    }
+
+    setFavoriteTeachers((previousTeachers) =>
+      previousTeachers.filter((teacher) => teacher.id !== teacherId),
+    );
+  };
+
   return (
     <TeacherCatalog
       teachers={favoriteTeachers}
+      filterTeachers={favoriteTeachers}
       isLoading={isLoading}
+      onFavoriteChange={handleFavoriteChange}
       emptyMessage="You have no favorite teachers matching the selected filters."
     />
   );

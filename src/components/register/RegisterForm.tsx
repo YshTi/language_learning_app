@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import toast from "react-hot-toast";
 
 import { useAuth } from "../../context/useAuth";
 import { registerSchema } from "../../utils/validationSchemas";
@@ -48,13 +49,37 @@ const RegisterForm = ({ onClose }: RegisterFormProps) => {
 
       await registerUser(data.name, data.email, data.password);
 
+      toast.success("Your account has been created successfully.");
+
       onClose();
     } catch (error) {
       console.error(error);
 
-      setFirebaseError("Registration failed. Please try again.");
+      const message = "Registration failed. Please try again.";
+
+      setFirebaseError(message);
+
+      toast.error(message);
     }
   };
+
+  const nameRegistration = register("name", {
+    onChange: () => {
+      setFirebaseError(null);
+    },
+  });
+
+  const emailRegistration = register("email", {
+    onChange: () => {
+      setFirebaseError(null);
+    },
+  });
+
+  const passwordRegistration = register("password", {
+    onChange: () => {
+      setFirebaseError(null);
+    },
+  });
 
   return (
     <>
@@ -80,7 +105,7 @@ const RegisterForm = ({ onClose }: RegisterFormProps) => {
                 ? `${styles.input} ${styles.inputError}`
                 : styles.input
             }
-            {...register("name")}
+            {...nameRegistration}
           />
 
           {errors.name && <p className={styles.error}>{errors.name.message}</p>}
@@ -92,11 +117,11 @@ const RegisterForm = ({ onClose }: RegisterFormProps) => {
             placeholder="Email"
             autoComplete="email"
             className={
-              errors.email
+              errors.email || firebaseError
                 ? `${styles.input} ${styles.inputError}`
                 : styles.input
             }
-            {...register("email")}
+            {...emailRegistration}
           />
 
           {errors.email && (
@@ -111,17 +136,17 @@ const RegisterForm = ({ onClose }: RegisterFormProps) => {
               placeholder="Password"
               autoComplete="new-password"
               className={
-                errors.password
+                errors.password || firebaseError
                   ? `${styles.input} ${styles.inputError}`
                   : styles.input
               }
-              {...register("password")}
+              {...passwordRegistration}
             />
 
             <button
               type="button"
               className={styles.passwordToggle}
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick={() => setShowPassword((previous) => !previous)}
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <LuEye /> : <LuEyeOff />}

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+import PrivateRoute from "./components/private-route/PrivateRoute";
 
 import Header from "./components/header/Header";
 import Loader from "./components/loader/Loader";
@@ -42,7 +43,14 @@ function App() {
 
           <Route path="/teachers" element={<TeachersPage />} />
 
-          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route
+            path="/favorites"
+            element={
+              <PrivateRoute>
+                <FavoritesPage />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Suspense>
     </>

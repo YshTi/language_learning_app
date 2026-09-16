@@ -92,7 +92,7 @@ The Home page contains:
 
 - application advantages
 - introductory content
-- call-to-action button leading to the Register modal for unauthorized user and Teachers page for the authorized one
+- call-to-action button leading to the Teachers page
 - statistical information about teachers, lessons, students, and languages
 
 ### Teachers Page

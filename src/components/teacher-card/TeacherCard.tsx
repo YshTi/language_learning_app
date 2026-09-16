@@ -25,12 +25,14 @@ interface TeacherCardProps {
   teacher: Teacher;
   selectedLevel?: string;
   selectedLanguage?: string;
+  onFavoriteChange?: (teacherId: string, isFavorite: boolean) => void;
 }
 
 const TeacherCard = ({
   teacher,
   selectedLevel = "",
   selectedLanguage = "",
+  onFavoriteChange,
 }: TeacherCardProps) => {
   const { user } = useAuth();
 
@@ -80,6 +82,8 @@ const TeacherCard = ({
 
         setIsFavorite(false);
 
+        onFavoriteChange?.(teacher.id, false);
+
         toast.success(
           `${teacher.name} ${teacher.surname} was removed from favorites.`,
         );
@@ -87,6 +91,8 @@ const TeacherCard = ({
         await addFavorite(user.uid, teacher.id);
 
         setIsFavorite(true);
+
+        onFavoriteChange?.(teacher.id, true);
 
         toast.success(
           `${teacher.name} ${teacher.surname} was added to favorites.`,

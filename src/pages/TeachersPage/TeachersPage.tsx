@@ -2,23 +2,40 @@ import { useEffect, useState } from "react";
 
 import TeacherCatalog from "../../components/teacher-catalog/TeacherCatalog";
 
-import { getAllTeachers } from "../../firebase/teachers";
+import { getAllTeachers, getTeachersPage } from "../../firebase/teachers";
 
 import type { Teacher } from "../../types/teacher";
 
+const PAGE_SIZE = 4;
+
 const TeachersPage = () => {
+  const [allTeachers, setAllTeachers] = useState<Teacher[]>([]);
+
   const [teachers, setTeachers] = useState<Teacher[]>([]);
+
+  const [lastKey, setLastKey] = useState<string | null>(null);
+
+  const [hasMore, setHasMore] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadTeachers = async () => {
+    const loadInitialTeachers = async () => {
       try {
         setIsLoading(true);
 
-        const data = await getAllTeachers();
+        const [allTeachersData, firstPage] = await Promise.all([
+          getAllTeachers(),
+          getTeachersPage(PAGE_SIZE),
+        ]);
 
-        setTeachers(data);
+        setAllTeachers(allTeachersData);
+
+        setTeachers(firstPage.teachers);
+
+        setLastKey(firstPage.lastKey);
+
+        setHasMore(firstPage.teachers.length < allTeachersData.length);
       } catch (error) {
         console.error("Failed to load teachers:", error);
       } finally {
@@ -26,13 +43,35 @@ const TeachersPage = () => {
       }
     };
 
-    loadTeachers();
+    loadInitialTeachers();
   }, []);
+
+  const handleLoadMore = async () => {
+    if (!lastKey || !hasMore) {
+      return;
+    }
+
+    const nextPage = await getTeachersPage(PAGE_SIZE, lastKey);
+
+    const loadedTeachersCount = teachers.length + nextPage.teachers.length;
+
+    setTeachers((previousTeachers) => [
+      ...previousTeachers,
+      ...nextPage.teachers,
+    ]);
+
+    setLastKey(nextPage.lastKey);
+
+    setHasMore(loadedTeachersCount < allTeachers.length);
+  };
 
   return (
     <TeacherCatalog
       teachers={teachers}
+      filterTeachers={allTeachers}
       isLoading={isLoading}
+      hasMoreFromDatabase={hasMore}
+      onLoadMoreRequest={handleLoadMore}
       emptyMessage="No teachers match the selected filters."
     />
   );

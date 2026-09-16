@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
 
 import { useAuth } from "../../context/useAuth";
 import { loginSchema } from "../../utils/validationSchemas";
@@ -43,11 +44,29 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
 
       await login(data.email, data.password);
 
+      toast.success("You have successfully logged in.");
+
       onClose();
     } catch {
-      setFirebaseError("Invalid email or password");
+      const message = "Invalid email or password.";
+
+      setFirebaseError(message);
+
+      toast.error(message);
     }
   };
+
+  const emailRegistration = register("email", {
+    onChange: () => {
+      setFirebaseError(null);
+    },
+  });
+
+  const passwordRegistration = register("password", {
+    onChange: () => {
+      setFirebaseError(null);
+    },
+  });
 
   return (
     <>
@@ -69,11 +88,11 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
             placeholder="Email"
             autoComplete="email"
             className={
-              errors.email
+              errors.email || firebaseError
                 ? `${styles.input} ${styles.inputError}`
                 : styles.input
             }
-            {...register("email")}
+            {...emailRegistration}
           />
 
           {errors.email && (
@@ -87,11 +106,11 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
             placeholder="Password"
             autoComplete="current-password"
             className={
-              errors.password
+              errors.password || firebaseError
                 ? `${styles.input} ${styles.inputError}`
                 : styles.input
             }
-            {...register("password")}
+            {...passwordRegistration}
           />
 
           {errors.password && (

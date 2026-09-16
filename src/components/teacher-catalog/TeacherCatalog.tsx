@@ -17,16 +17,24 @@ interface Option {
 
 interface TeacherCatalogProps {
   teachers: Teacher[];
+  filterTeachers?: Teacher[];
   isLoading?: boolean;
   emptyMessage?: string;
+  hasMoreFromDatabase?: boolean;
+  onLoadMoreRequest?: () => Promise<void>;
+  onFavoriteChange?: (teacherId: string, isFavorite: boolean) => void;
 }
 
 const PAGE_SIZE = 4;
 
 const TeacherCatalog = ({
   teachers,
+  filterTeachers,
   isLoading = false,
   emptyMessage = "No teachers match the selected filters.",
+  hasMoreFromDatabase = false,
+  onLoadMoreRequest,
+  onFavoriteChange,
 }: TeacherCatalogProps) => {
   const [language, setLanguage] = useState("");
   const [level, setLevel] = useState("");
@@ -38,30 +46,37 @@ const TeacherCatalog = ({
 
   const pendingScrollTeacherId = useRef<string | null>(null);
 
+  const filterSource = filterTeachers ?? teachers;
+
   const languageOptions: Option[] = useMemo(() => {
     const uniqueLanguages = [
-      ...new Set(teachers.flatMap((teacher) => teacher.languages)),
+      ...new Set(filterSource.flatMap((teacher) => teacher.languages)),
     ].sort();
 
     return uniqueLanguages.map((language) => ({
       label: language,
       value: language,
     }));
-  }, [teachers]);
+  }, [filterSource]);
 
   const levelOptions: Option[] = useMemo(() => {
     const uniqueLevels = [
-      ...new Set(teachers.flatMap((teacher) => teacher.levels)),
-    ];
+      ...new Set(filterSource.flatMap((teacher) => teacher.levels)),
+    ].sort();
 
     return uniqueLevels.map((level) => ({
       label: level,
       value: level,
     }));
-  }, [teachers]);
+  }, [filterSource]);
+
+  const hasActiveFilters =
+    Boolean(language) || Boolean(level) || Boolean(price);
+
+  const sourceForFiltering = hasActiveFilters ? filterSource : teachers;
 
   const filteredTeachers = useMemo(() => {
-    return teachers.filter((teacher) => {
+    return sourceForFiltering.filter((teacher) => {
       const matchesLanguage = !language || teacher.languages.includes(language);
 
       const matchesLevel = !level || teacher.levels.includes(level);
@@ -82,13 +97,17 @@ const TeacherCatalog = ({
 
       return matchesLanguage && matchesLevel && matchesPrice;
     });
-  }, [teachers, language, level, price]);
+  }, [sourceForFiltering, language, level, price]);
 
   const visibleTeachers = useMemo(() => {
     return filteredTeachers.slice(0, visibleCount);
   }, [filteredTeachers, visibleCount]);
 
-  const hasMore = visibleCount < filteredTeachers.length;
+  const hasMoreFiltered = visibleCount < filteredTeachers.length;
+
+  const hasMore = hasActiveFilters
+    ? hasMoreFiltered
+    : hasMoreFromDatabase || hasMoreFiltered;
 
   const handleLanguageChange = (value: string) => {
     setLanguage(value);
@@ -126,9 +145,13 @@ const TeacherCatalog = ({
         pendingScrollTeacherId.current = firstNewTeacher.id;
       }
 
-      setVisibleCount((previousCount) =>
-        Math.min(previousCount + PAGE_SIZE, filteredTeachers.length),
-      );
+      if (!hasActiveFilters && onLoadMoreRequest && hasMoreFromDatabase) {
+        await onLoadMoreRequest();
+      }
+
+      setVisibleCount((previousCount) => previousCount + PAGE_SIZE);
+    } catch (error) {
+      console.error("Failed to load more teachers:", error);
     } finally {
       setIsLoadingMore(false);
     }
@@ -152,9 +175,6 @@ const TeacherCatalog = ({
       pendingScrollTeacherId.current = null;
     }
   }, [visibleTeachers]);
-
-  const hasActiveFilters =
-    Boolean(language) || Boolean(level) || Boolean(price);
 
   return (
     <main className={styles.page}>
@@ -190,6 +210,7 @@ const TeacherCatalog = ({
                       teacher={teacher}
                       selectedLevel={level}
                       selectedLanguage={language}
+                      onFavoriteChange={onFavoriteChange}
                     />
                   </div>
                 ))

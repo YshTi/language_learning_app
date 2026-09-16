@@ -10,7 +10,6 @@
   gap: 24px;
 }
 
-/* Top section: text + image */
 .heroTop {
   display: grid;
   grid-template-columns: 720px 568px;
