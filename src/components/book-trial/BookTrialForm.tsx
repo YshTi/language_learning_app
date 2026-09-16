@@ -1,8 +1,4 @@
-import {
-  Controller,
-  useForm,
-  useWatch,
-} from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 
@@ -47,10 +43,7 @@ const BookTrialForm = ({
     register,
     control,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<BookTrialFormData>({
     resolver: yupResolver(bookingSchema),
     mode: "onBlur",
@@ -69,53 +62,38 @@ const BookTrialForm = ({
     name: "language",
   });
 
-  const languageOptions = teacher.languages.map(
-    (language) => ({
-      label: language,
-      value: language,
-    })
-  );
+  const languageOptions = teacher.languages.map((language) => ({
+    label: language,
+    value: language,
+  }));
 
-  const onSubmit = async (
-    data: BookTrialFormData
-  ) => {
+  const onSubmit = async (data: BookTrialFormData) => {
     try {
       const bookingData = {
         teacherId: teacher.id,
-        teacherName:
-          `${teacher.name} ${teacher.surname}`,
+        teacherName: `${teacher.name} ${teacher.surname}`,
         ...data,
       };
 
       await createBooking(bookingData);
 
-      toast.success(
-        "Your trial lesson request was submitted successfully."
-      );
+      toast.success("Your trial lesson request was submitted successfully.");
 
       onClose();
     } catch (error) {
-      console.error(
-        "Failed to book trial lesson:",
-        error
-      );
+      console.error("Failed to book trial lesson:", error);
 
-      toast.error(
-        "Could not submit your booking. Please try again."
-      );
+      toast.error("Could not submit your booking. Please try again.");
     }
   };
 
   return (
     <>
-      <h2 className={styles.title}>
-        Book trial lesson
-      </h2>
+      <h2 className={styles.title}>Book trial lesson</h2>
 
       <p className={styles.description}>
-        Our experienced tutor will assess your current
-        language level, discuss your learning goals, and
-        tailor the lesson to your specific needs.
+        Our experienced tutor will assess your current language level, discuss
+        your learning goals, and tailor the lesson to your specific needs.
       </p>
 
       <div className={styles.teacher}>
@@ -126,9 +104,7 @@ const BookTrialForm = ({
         />
 
         <div>
-          <p className={styles.teacherLabel}>
-            Your teacher
-          </p>
+          <p className={styles.teacherLabel}>Your teacher</p>
 
           <p className={styles.teacherName}>
             {teacher.name} {teacher.surname}
@@ -158,9 +134,7 @@ const BookTrialForm = ({
             />
 
             {errors.language && (
-              <p className={styles.error}>
-                {errors.language.message}
-              </p>
+              <p className={styles.error}>{errors.language.message}</p>
             )}
           </div>
         )}
@@ -174,19 +148,10 @@ const BookTrialForm = ({
 
           <div className={styles.radioList}>
             {reasons.map((reason) => (
-              <label
-                key={reason}
-                className={styles.radioLabel}
-              >
-                <input
-                  type="radio"
-                  value={reason}
-                  {...register("reason")}
-                />
+              <label key={reason} className={styles.radioLabel}>
+                <input type="radio" value={reason} {...register("reason")} />
 
-                <span
-                  className={styles.customRadio}
-                />
+                <span className={styles.customRadio} />
 
                 <span>{reason}</span>
               </label>
@@ -194,9 +159,7 @@ const BookTrialForm = ({
           </div>
 
           {errors.reason && (
-            <p className={styles.error}>
-              {errors.reason.message}
-            </p>
+            <p className={styles.error}>{errors.reason.message}</p>
           )}
         </fieldset>
 
@@ -213,11 +176,7 @@ const BookTrialForm = ({
             {...register("name")}
           />
 
-          {errors.name && (
-            <p className={styles.error}>
-              {errors.name.message}
-            </p>
-          )}
+          {errors.name && <p className={styles.error}>{errors.name.message}</p>}
         </div>
 
         <div className={styles.field}>
@@ -234,9 +193,7 @@ const BookTrialForm = ({
           />
 
           {errors.email && (
-            <p className={styles.error}>
-              {errors.email.message}
-            </p>
+            <p className={styles.error}>{errors.email.message}</p>
           )}
         </div>
 
@@ -254,9 +211,7 @@ const BookTrialForm = ({
           />
 
           {errors.phone && (
-            <p className={styles.error}>
-              {errors.phone.message}
-            </p>
+            <p className={styles.error}>{errors.phone.message}</p>
           )}
         </div>
 

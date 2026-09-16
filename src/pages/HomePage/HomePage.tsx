@@ -12,8 +12,7 @@ import styles from "./HomePage.module.css";
 const HomePage = () => {
   const { user } = useAuth();
 
-  const [isRegisterOpen, setIsRegisterOpen] =
-    useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   return (
     <>
@@ -23,17 +22,13 @@ const HomePage = () => {
             <div className={styles.heroText}>
               <h1 className={styles.title}>
                 Unlock your potential with the best{" "}
-                <span className={styles.highlight}>
-                  language
-                </span>{" "}
-                tutors
+                <span className={styles.highlight}>language</span> tutors
               </h1>
 
               <p className={styles.description}>
-                Embark on an exciting language journey with expert
-                language tutors. Elevate your language proficiency
-                to new heights by connecting with highly qualified
-                and experienced tutors.
+                Embark on an exciting language journey with expert language
+                tutors. Elevate your language proficiency to new heights by
+                connecting with highly qualified and experienced tutors.
               </p>
 
               {user ? (
@@ -59,13 +54,13 @@ const HomePage = () => {
 
             <div className={styles.heroImage}>
               <img
-                src="/images/teacher.png"
+                src="/images/teacher.webp"
                 alt="Online language teacher"
                 className={styles.teacherImage}
               />
 
               <img
-                src="/images/laptop.png"
+                src="/images/laptop.webp"
                 alt="Laptop"
                 className={styles.laptopImage}
               />
@@ -75,47 +70,31 @@ const HomePage = () => {
           <div className={styles.statistics}>
             <ul className={styles.statisticsList}>
               <li className={styles.statItem}>
-                <span className={styles.statNumber}>
-                  32,000 +
-                </span>
+                <span className={styles.statNumber}>32,000 +</span>
 
-                <span
-                  className={`${styles.statLabel} ${styles.wideLabel}`}
-                >
+                <span className={`${styles.statLabel} ${styles.wideLabel}`}>
                   Experienced tutors
                 </span>
               </li>
 
               <li className={styles.statItem}>
-                <span className={styles.statNumber}>
-                  300,000 +
-                </span>
+                <span className={styles.statNumber}>300,000 +</span>
 
-                <span
-                  className={`${styles.statLabel} ${styles.wideLabel}`}
-                >
+                <span className={`${styles.statLabel} ${styles.wideLabel}`}>
                   5-star tutor reviews
                 </span>
               </li>
 
               <li className={styles.statItem}>
-                <span className={styles.statNumber}>
-                  120 +
-                </span>
+                <span className={styles.statNumber}>120 +</span>
 
-                <span className={styles.statLabel}>
-                  Subjects taught
-                </span>
+                <span className={styles.statLabel}>Subjects taught</span>
               </li>
 
               <li className={styles.statItem}>
-                <span className={styles.statNumber}>
-                  200 +
-                </span>
+                <span className={styles.statNumber}>200 +</span>
 
-                <span className={styles.statLabel}>
-                  Tutor nationalities
-                </span>
+                <span className={styles.statLabel}>Tutor nationalities</span>
               </li>
             </ul>
           </div>
@@ -123,12 +102,8 @@ const HomePage = () => {
       </main>
 
       {isRegisterOpen && (
-        <Modal
-          onClose={() => setIsRegisterOpen(false)}
-        >
-          <RegisterForm
-            onClose={() => setIsRegisterOpen(false)}
-          />
+        <Modal onClose={() => setIsRegisterOpen(false)}>
+          <RegisterForm onClose={() => setIsRegisterOpen(false)} />
         </Modal>
       )}
     </>

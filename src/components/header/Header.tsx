@@ -31,83 +31,79 @@ const Header = () => {
     <>
       <header className={styles.header}>
         <Container className={styles.headerContainer}>
-            <Logo />
+          <Logo />
 
-            <nav className={styles.nav}>
+          <nav className={styles.nav}>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
+              }
+            >
+              Home
+            </NavLink>
+
+            <NavLink
+              to="/teachers"
+              className={({ isActive }) =>
+                isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
+              }
+            >
+              Teachers
+            </NavLink>
+
+            {user && (
               <NavLink
-                to="/"
+                to="/favorites"
                 className={({ isActive }) =>
                   isActive
                     ? `${styles.navLink} ${styles.active}`
                     : styles.navLink
                 }
               >
-                Home
+                Favorites
               </NavLink>
+            )}
+          </nav>
 
-              <NavLink
-                to="/teachers"
-                className={({ isActive }) =>
-                  isActive
-                    ? `${styles.navLink} ${styles.active}`
-                    : styles.navLink
-                }
-              >
-                Teachers
-              </NavLink>
+          <div className={styles.actions}>
+            {user ? (
+              <>
+                <span className={styles.userName}>
+                  {user.displayName || user.email}
+                </span>
 
-              {user && (
-                <NavLink
-                  to="/favorites"
-                  className={({ isActive }) =>
-                    isActive
-                      ? `${styles.navLink} ${styles.active}`
-                      : styles.navLink
-                  }
+                <button
+                  type="button"
+                  className={styles.authButton}
+                  onClick={handleLogout}
                 >
-                  Favorites
-                </NavLink>
-              )}
-            </nav>
+                  <CiLogout className={styles.authIcon} />
+                  Log out
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className={styles.authButton}
+                  onClick={() => setIsLoginOpen(true)}
+                >
+                  <CiLogin className={styles.authIcon} />
+                  Log in
+                </button>
 
-            <div className={styles.actions}>
-              {user ? (
-                <>
-                  <span className={styles.userName}>
-                    {user.displayName || user.email}
-                  </span>
-
-                  <button
-                    type="button"
-                    className={styles.authButton}
-                    onClick={handleLogout}
-                  >
-                    <CiLogout className={styles.authIcon} />
-                    Log out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    type="button"
-                    className={styles.authButton}
-                    onClick={() => setIsLoginOpen(true)}
-                  >
-                    <CiLogin className={styles.authIcon} />
-                    Log in
-                  </button>
-
-                  <ButtonLink
-                    as="button"
-                    variant="secondary"
-                    className={styles.registerButton}
-                    onClick={() => setIsRegisterOpen(true)}
-                  >
-                    Registration
-                  </ButtonLink>
-                </>
-              )}
-            </div>
+                <ButtonLink
+                  as="button"
+                  variant="secondary"
+                  className={styles.registerButton}
+                  onClick={() => setIsRegisterOpen(true)}
+                >
+                  Registration
+                </ButtonLink>
+              </>
+            )}
+          </div>
         </Container>
       </header>
 
@@ -119,9 +115,7 @@ const Header = () => {
 
       {isRegisterOpen && (
         <Modal onClose={() => setIsRegisterOpen(false)}>
-          <RegisterForm
-            onClose={() => setIsRegisterOpen(false)}
-          />
+          <RegisterForm onClose={() => setIsRegisterOpen(false)} />
         </Modal>
       )}
     </>

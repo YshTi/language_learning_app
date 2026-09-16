@@ -1,37 +1,37 @@
 .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .iconWrapper {
-    position: relative;
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
+  position: relative;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }
 
 .iconWrapper svg {
-    position: absolute;
-    inset: 0;
+  position: absolute;
+  inset: 0;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .topHalf {
-    color: #338AF3;
-    transform: rotate(-90deg);
+  color: #338af3;
+  transform: rotate(-90deg);
 }
 
 .bottomHalf {
-    color: #FFDA44;
-    transform: rotate(90deg);
+  color: #ffda44;
+  transform: rotate(90deg);
 }
 
 .text {
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }

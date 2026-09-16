@@ -9,11 +9,7 @@ interface LoadMoreProps {
   onLoadMore: () => void;
 }
 
-const LoadMore = ({
-  isLoading,
-  hasMore,
-  onLoadMore,
-}: LoadMoreProps) => {
+const LoadMore = ({ isLoading, hasMore, onLoadMore }: LoadMoreProps) => {
   if (!hasMore) {
     return null;
   }

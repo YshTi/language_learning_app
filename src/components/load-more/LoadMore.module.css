@@ -1,10 +1,10 @@
 .wrapper {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    margin-top: 64px;
+  margin-top: 64px;
 }
 
 .button {
-    min-width: 183px;
+  min-width: 183px;
 }

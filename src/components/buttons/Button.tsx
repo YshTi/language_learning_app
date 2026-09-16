@@ -27,21 +27,13 @@ interface LinkProps extends BaseProps {
 type ButtonLinkProps = ButtonProps | LinkProps;
 
 const ButtonLink = (props: ButtonLinkProps) => {
-  const {
-    children,
-    variant = "primary",
-    className = "",
-  } = props;
+  const { children, variant = "primary", className = "" } = props;
 
-  const classes =
-    `${styles.base} ${styles[variant]} ${className}`;
+  const classes = `${styles.base} ${styles[variant]} ${className}`;
 
   if (props.as === "link") {
     return (
-      <Link
-        to={props.to}
-        className={classes}
-      >
+      <Link to={props.to} className={classes}>
         {children}
       </Link>
     );
@@ -53,17 +45,11 @@ const ButtonLink = (props: ButtonLinkProps) => {
     <button
       type={props.type ?? "button"}
       onClick={props.onClick}
-      disabled={
-        props.disabled || isLoading
-      }
+      disabled={props.disabled || isLoading}
       className={classes}
       aria-busy={isLoading}
     >
-      {isLoading ? (
-        <Loader size={28} />
-      ) : (
-        children
-      )}
+      {isLoading ? <Loader size={28} /> : children}
     </button>
   );
 };

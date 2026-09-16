@@ -20,12 +20,11 @@ createRoot(document.getElementById("root")!).render(
               borderRadius: "12px",
               background: "#ffffff",
               color: "#121417",
-              boxShadow:
-                "0 10px 30px rgba(18, 20, 23, 0.12)",
+              boxShadow: "0 10px 30px rgba(18, 20, 23, 0.12)",
             },
           }}
         />
       </AuthProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

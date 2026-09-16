@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 import TeacherCatalog from "../../components/teacher-catalog/TeacherCatalog";
 
@@ -15,11 +12,9 @@ import type { Teacher } from "../../types/teacher";
 const FavoritesPage = () => {
   const { user } = useAuth();
 
-  const [favoriteTeachers, setFavoriteTeachers] =
-    useState<Teacher[]>([]);
+  const [favoriteTeachers, setFavoriteTeachers] = useState<Teacher[]>([]);
 
-  const [isLoading, setIsLoading] =
-    useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!user) {
@@ -30,29 +25,18 @@ const FavoritesPage = () => {
       try {
         setIsLoading(true);
 
-        const [
-          teachers,
-          favoriteIds,
-        ] = await Promise.all([
+        const [teachers, favoriteIds] = await Promise.all([
           getAllTeachers(),
           getFavorites(user.uid),
         ]);
 
-        const favorites =
-          teachers.filter(teacher =>
-            favoriteIds.includes(
-              teacher.id
-            )
-          );
+        const favorites = teachers.filter((teacher) =>
+          favoriteIds.includes(teacher.id),
+        );
 
-        setFavoriteTeachers(
-          favorites
-        );
+        setFavoriteTeachers(favorites);
       } catch (error) {
-        console.error(
-          "Failed to load favorites:",
-          error
-        );
+        console.error("Failed to load favorites:", error);
       } finally {
         setIsLoading(false);
       }

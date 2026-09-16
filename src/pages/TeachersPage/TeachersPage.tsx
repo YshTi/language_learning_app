@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 import TeacherCatalog from "../../components/teacher-catalog/TeacherCatalog";
 
@@ -10,11 +7,9 @@ import { getAllTeachers } from "../../firebase/teachers";
 import type { Teacher } from "../../types/teacher";
 
 const TeachersPage = () => {
-  const [teachers, setTeachers] =
-    useState<Teacher[]>([]);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
 
-  const [isLoading, setIsLoading] =
-    useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadTeachers = async () => {
@@ -25,10 +20,7 @@ const TeachersPage = () => {
 
         setTeachers(data);
       } catch (error) {
-        console.error(
-          "Failed to load teachers:",
-          error
-        );
+        console.error("Failed to load teachers:", error);
       } finally {
         setIsLoading(false);
       }

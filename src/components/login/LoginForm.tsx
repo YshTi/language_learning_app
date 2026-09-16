@@ -21,16 +21,12 @@ interface LoginFormData {
 const LoginForm = ({ onClose }: LoginFormProps) => {
   const { login } = useAuth();
 
-  const [firebaseError, setFirebaseError] =
-    useState<string | null>(null);
+  const [firebaseError, setFirebaseError] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
     mode: "onBlur",
@@ -58,8 +54,8 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
       <h2 className={styles.title}>Log In</h2>
 
       <p className={styles.description}>
-        Welcome back! Please enter your credentials to access your
-        account and continue your search for a teacher.
+        Welcome back! Please enter your credentials to access your account and
+        continue your search for a teacher.
       </p>
 
       <form
@@ -81,9 +77,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
           />
 
           {errors.email && (
-            <p className={styles.error}>
-              {errors.email.message}
-            </p>
+            <p className={styles.error}>{errors.email.message}</p>
           )}
         </div>
 
@@ -101,17 +95,11 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
           />
 
           {errors.password && (
-            <p className={styles.error}>
-              {errors.password.message}
-            </p>
+            <p className={styles.error}>{errors.password.message}</p>
           )}
         </div>
 
-        {firebaseError && (
-          <p className={styles.error}>
-            {firebaseError}
-          </p>
-        )}
+        {firebaseError && <p className={styles.error}>{firebaseError}</p>}
 
         <ButtonLink
           as="button"

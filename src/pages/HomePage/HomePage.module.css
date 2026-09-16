@@ -1,142 +1,139 @@
 .home {
-    padding-bottom: 32px;
+  padding-bottom: 32px;
 }
 
 .homeContainer {
-    max-width: 1312px;
+  max-width: 1312px;
 
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 /* Top section: text + image */
 .heroTop {
-    display: grid;
-    grid-template-columns: 720px 568px;
-    gap: 24px;
+  display: grid;
+  grid-template-columns: 720px 568px;
+  gap: 24px;
 }
 
 .heroText {
-    min-height: 530px;
+  min-height: 530px;
 
-    padding: 98px 64px;
+  padding: 98px 64px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    border-radius: 30px;
+  border-radius: 30px;
 
-    background-color: var(--background-secondary);
+  background-color: var(--background-secondary);
 }
 
 .title {
-    margin-bottom: 32px;
+  margin-bottom: 32px;
 
-    font-size: 48px;
-    font-weight: 500;
-    line-height: 1.16;
-    letter-spacing: -0.02em;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
 
-    color: var(--text-primary);
+  color: var(--text-primary);
 }
 
 .highlight {
-    display: inline-block;
+  display: inline-block;
 
-    padding: 0 8px;
+  padding: 0 8px;
 
-    border-radius: 8px;
+  border-radius: 8px;
 
-    background-color: var(--secondary);
+  background-color: var(--secondary);
 
-    font-weight: 400;
-    font-style: italic;
+  font-weight: 400;
+  font-style: italic;
 }
 
 .description {
-    max-width: 471px;
+  max-width: 471px;
 
-    line-height: 1.38;
-    letter-spacing: -0.02em;
+  line-height: 1.38;
+  letter-spacing: -0.02em;
 
-    color: var(--text-primary);
+  color: var(--text-primary);
 }
 
 .startButton {
-    margin-top: auto;
-    align-self: flex-start;
+  margin-top: auto;
+  align-self: flex-start;
 }
 
 .heroImage {
-    min-height: 530px;
+  min-height: 530px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    border-radius: 30px;
+  border-radius: 30px;
 
-    background-color: var(--secondary);
+  background-color: var(--secondary);
 
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .teacherImage {
-    position: relative;
-    top: 60px;
+  position: relative;
+  top: 60px;
 
-    z-index: 1;
+  z-index: 1;
 }
 
 .laptopImage {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
 .statistics {
-    min-height: 116px;
+  min-height: 116px;
 
-    border: 1.50px dashed var(--primary);
-    border-radius: 30px;
+  border: 1.5px dashed var(--primary);
+  border-radius: 30px;
 }
 
 .statisticsList {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    height: 100%;
-    padding: 40px 122px;
+  height: 100%;
+  padding: 40px 122px;
 }
 
 .statItem {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
 
-    letter-spacing: -0.02em;
+  letter-spacing: -0.02em;
 }
 
 .statNumber {
-    font-weight: 500;
-    font-size: 28px;
-    line-height: 1.14;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.14;
 }
 
 .statLabel {
-    font-size: 14px;
-    line-height: 1.29;
-    width: 74px;
+  font-size: 14px;
+  line-height: 1.29;
+  width: 74px;
 
-    color: color-mix(
-        in srgb,
-        var(--text-primary) 70%,
-        transparent);
+  color: color-mix(in srgb, var(--text-primary) 70%, transparent);
 }
 
 .wideLabel {
-    width: 96px;
+  width: 96px;
 }

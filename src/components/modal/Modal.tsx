@@ -9,11 +9,7 @@ interface ModalProps {
   className?: string;
 }
 
-const Modal = ({
-  children,
-  onClose,
-  className = "",
-}: ModalProps) => {
+const Modal = ({ children, onClose, className = "" }: ModalProps) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -32,19 +28,14 @@ const Modal = ({
     };
   }, [onClose]);
 
-  const handleBackdropClick = (
-    event: React.MouseEvent<HTMLDivElement>
-  ) => {
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
     }
   };
 
   return (
-    <div
-      className={styles.backdrop}
-      onClick={handleBackdropClick}
-    >
+    <div className={styles.backdrop} onClick={handleBackdropClick}>
       <div className={`${styles.modal} ${className}`}>
         <button
           type="button"

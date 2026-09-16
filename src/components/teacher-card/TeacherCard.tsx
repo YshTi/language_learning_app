@@ -34,17 +34,13 @@ const TeacherCard = ({
 }: TeacherCardProps) => {
   const { user } = useAuth();
 
-  const [isExpanded, setIsExpanded] =
-    useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const [isFavorite, setIsFavorite] =
-    useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-  const [isFavoriteLoading, setIsFavoriteLoading] =
-    useState(false);
+  const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
 
-  const [isBookingOpen, setIsBookingOpen] =
-    useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   useEffect(() => {
     const checkFavorite = async () => {
@@ -54,18 +50,11 @@ const TeacherCard = ({
       }
 
       try {
-        const favorites = await getFavorites(
-          user.uid
-        );
+        const favorites = await getFavorites(user.uid);
 
-        setIsFavorite(
-          favorites.includes(teacher.id)
-        );
+        setIsFavorite(favorites.includes(teacher.id));
       } catch (error) {
-        console.error(
-          "Failed to load favorites:",
-          error
-        );
+        console.error("Failed to load favorites:", error);
       }
     };
 
@@ -74,16 +63,12 @@ const TeacherCard = ({
 
   const handleToggleFavorite = async () => {
     if (!user) {
-      toast.error(
-        "Please log in to add teachers to favorites."
-      );
+      toast.error("Please log in to add teachers to favorites.");
       return;
     }
 
     if (!teacher.id) {
-      toast.error(
-        "Could not update favorites. Please try again."
-      );
+      toast.error("Could not update favorites. Please try again.");
       return;
     }
 
@@ -91,37 +76,26 @@ const TeacherCard = ({
       setIsFavoriteLoading(true);
 
       if (isFavorite) {
-        await removeFavorite(
-          user.uid,
-          teacher.id
-        );
+        await removeFavorite(user.uid, teacher.id);
 
         setIsFavorite(false);
 
         toast.success(
-          `${teacher.name} ${teacher.surname} was removed from favorites.`
+          `${teacher.name} ${teacher.surname} was removed from favorites.`,
         );
       } else {
-        await addFavorite(
-          user.uid,
-          teacher.id
-        );
+        await addFavorite(user.uid, teacher.id);
 
         setIsFavorite(true);
 
         toast.success(
-          `${teacher.name} ${teacher.surname} was added to favorites.`
+          `${teacher.name} ${teacher.surname} was added to favorites.`,
         );
       }
     } catch (error) {
-      console.error(
-        "Failed to update favorite:",
-        error
-      );
+      console.error("Failed to update favorite:", error);
 
-      toast.error(
-        "Could not update favorites. Please try again."
-      );
+      toast.error("Could not update favorites. Please try again.");
     } finally {
       setIsFavoriteLoading(false);
     }
@@ -137,21 +111,16 @@ const TeacherCard = ({
             className={styles.avatar}
           />
 
-          <span
-            className={styles.onlineIndicator}
-          />
+          <span className={styles.onlineIndicator} />
         </div>
 
         <div className={styles.content}>
           <div className={styles.header}>
             <div>
-              <p className={styles.label}>
-                Languages
-              </p>
+              <p className={styles.label}>Languages</p>
 
               <h2 className={styles.name}>
-                {teacher.name}{" "}
-                {teacher.surname}
+                {teacher.name} {teacher.surname}
               </h2>
             </div>
 
@@ -163,28 +132,19 @@ const TeacherCard = ({
               </div>
 
               <div className={styles.stat}>
-                <span>
-                  Lessons done:{" "}
-                  {teacher.lessons_done}
-                </span>
+                <span>Lessons done: {teacher.lessons_done}</span>
               </div>
 
               <div className={styles.stat}>
-                <FaStar
-                  className={styles.starIcon}
-                />
+                <FaStar className={styles.starIcon} />
 
-                <span>
-                  Rating: {teacher.rating}
-                </span>
+                <span>Rating: {teacher.rating}</span>
               </div>
 
               <div className={styles.stat}>
                 <span>
                   Price / 1 hour:{" "}
-                  <strong
-                    className={styles.price}
-                  >
+                  <strong className={styles.price}>
                     {teacher.price_per_hour}$
                   </strong>
                 </span>
@@ -203,9 +163,7 @@ const TeacherCard = ({
               }
             >
               {isFavorite ? (
-                <FaHeart
-                  className={styles.favoriteActive}
-                />
+                <FaHeart className={styles.favoriteActive} />
               ) : (
                 <FaRegHeart />
               )}
@@ -214,31 +172,19 @@ const TeacherCard = ({
 
           <div className={styles.details}>
             <p className={styles.infoRow}>
-              <span
-                className={styles.detailLabel}
-              >
-                Speaks:
-              </span>{" "}
+              <span className={styles.detailLabel}>Speaks:</span>{" "}
               <span className={styles.languages}>
                 {teacher.languages.join(", ")}
               </span>
             </p>
 
             <p className={styles.infoRow}>
-              <span
-                className={styles.detailLabel}
-              >
-                Lesson Info:
-              </span>{" "}
+              <span className={styles.detailLabel}>Lesson Info:</span>{" "}
               {teacher.lesson_info}
             </p>
 
             <p className={styles.infoRow}>
-              <span
-                className={styles.detailLabel}
-              >
-                Conditions:
-              </span>{" "}
+              <span className={styles.detailLabel}>Conditions:</span>{" "}
               {teacher.conditions.join(" ")}
             </p>
 
@@ -246,105 +192,56 @@ const TeacherCard = ({
               <button
                 type="button"
                 className={styles.readMore}
-                onClick={() =>
-                  setIsExpanded(true)
-                }
+                onClick={() => setIsExpanded(true)}
               >
                 Read more
               </button>
             )}
 
             {isExpanded && (
-              <div
-                className={
-                  styles.expandedContent
-                }
-              >
-                <p
-                  className={
-                    styles.experience
-                  }
-                >
-                  {teacher.experience}
-                </p>
+              <div className={styles.expandedContent}>
+                <p className={styles.experience}>{teacher.experience}</p>
 
                 <div className={styles.reviews}>
-                  {teacher.reviews.map(
-                    (review, index) => (
-                      <div
-                        className={
-                          styles.review
-                        }
-                        key={`${review.reviewer_name}-${index}`}
-                      >
-                        <div
-                          className={
-                            styles.reviewHeader
-                          }
-                        >
-                          <div
-                            className={
-                              styles.reviewAvatar
-                            }
-                          >
-                            {review.reviewer_name
-                              .charAt(0)
-                              .toUpperCase()}
-                          </div>
-
-                          <div>
-                            <p
-                              className={
-                                styles.reviewerName
-                              }
-                            >
-                              {
-                                review.reviewer_name
-                              }
-                            </p>
-
-                            <div
-                              className={
-                                styles.reviewRating
-                              }
-                            >
-                              <FaStar />
-
-                              <span>
-                                {review.reviewer_rating.toFixed(
-                                  1
-                                )}
-                              </span>
-                            </div>
-                          </div>
+                  {teacher.reviews.map((review, index) => (
+                    <div
+                      className={styles.review}
+                      key={`${review.reviewer_name}-${index}`}
+                    >
+                      <div className={styles.reviewHeader}>
+                        <div className={styles.reviewAvatar}>
+                          {review.reviewer_name.charAt(0).toUpperCase()}
                         </div>
 
-                        <p
-                          className={
-                            styles.reviewComment
-                          }
-                        >
-                          {review.comment}
-                        </p>
+                        <div>
+                          <p className={styles.reviewerName}>
+                            {review.reviewer_name}
+                          </p>
+
+                          <div className={styles.reviewRating}>
+                            <FaStar />
+
+                            <span>{review.reviewer_rating.toFixed(1)}</span>
+                          </div>
+                        </div>
                       </div>
-                    )
-                  )}
+
+                      <p className={styles.reviewComment}>{review.comment}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
 
             <ul className={styles.levels}>
               {teacher.levels.map((level) => {
-                const isActive =
-                  selectedLevel === level;
+                const isActive = selectedLevel === level;
 
                 return (
                   <li
                     key={level}
                     className={`${styles.level} ${
-                      isActive
-                        ? styles.levelActive
-                        : ""
+                      isActive ? styles.levelActive : ""
                     }`}
                   >
                     #{level}
@@ -358,9 +255,7 @@ const TeacherCard = ({
                 as="button"
                 variant="primary"
                 className={styles.bookButton}
-                onClick={() =>
-                  setIsBookingOpen(true)
-                }
+                onClick={() => setIsBookingOpen(true)}
               >
                 Book trial lesson
               </ButtonLink>
@@ -371,17 +266,13 @@ const TeacherCard = ({
 
       {isBookingOpen && (
         <Modal
-          onClose={() =>
-            setIsBookingOpen(false)
-          }
+          onClose={() => setIsBookingOpen(false)}
           className={styles.bookingModal}
         >
           <BookTrialForm
             teacher={teacher}
             selectedLanguage={selectedLanguage}
-            onClose={() =>
-              setIsBookingOpen(false)
-            }
+            onClose={() => setIsBookingOpen(false)}
           />
         </Modal>
       )}

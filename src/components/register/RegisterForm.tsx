@@ -23,19 +23,14 @@ interface RegisterFormData {
 const RegisterForm = ({ onClose }: RegisterFormProps) => {
   const { register: registerUser } = useAuth();
 
-  const [firebaseError, setFirebaseError] =
-    useState<string | null>(null);
+  const [firebaseError, setFirebaseError] = useState<string | null>(null);
 
-  const [showPassword, setShowPassword] =
-    useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-    },
+    formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema),
     mode: "onBlur",
@@ -51,32 +46,23 @@ const RegisterForm = ({ onClose }: RegisterFormProps) => {
     try {
       setFirebaseError(null);
 
-      await registerUser(
-        data.name,
-        data.email,
-        data.password
-      );
+      await registerUser(data.name, data.email, data.password);
 
       onClose();
     } catch (error) {
       console.error(error);
 
-      setFirebaseError(
-        "Registration failed. Please try again."
-      );
+      setFirebaseError("Registration failed. Please try again.");
     }
   };
 
   return (
     <>
-      <h2 className={styles.title}>
-        Registration
-      </h2>
+      <h2 className={styles.title}>Registration</h2>
 
       <p className={styles.description}>
-        Thank you for your interest in our platform! In order to
-        register, we need some information. Please provide us with
-        the following information.
+        Thank you for your interest in our platform! In order to register, we
+        need some information. Please provide us with the following information.
       </p>
 
       <form
@@ -97,11 +83,7 @@ const RegisterForm = ({ onClose }: RegisterFormProps) => {
             {...register("name")}
           />
 
-          {errors.name && (
-            <p className={styles.error}>
-              {errors.name.message}
-            </p>
-          )}
+          {errors.name && <p className={styles.error}>{errors.name.message}</p>}
         </div>
 
         <div className={styles.field}>
@@ -118,9 +100,7 @@ const RegisterForm = ({ onClose }: RegisterFormProps) => {
           />
 
           {errors.email && (
-            <p className={styles.error}>
-              {errors.email.message}
-            </p>
+            <p className={styles.error}>{errors.email.message}</p>
           )}
         </div>
 
@@ -141,35 +121,19 @@ const RegisterForm = ({ onClose }: RegisterFormProps) => {
             <button
               type="button"
               className={styles.passwordToggle}
-              onClick={() =>
-                setShowPassword(prev => !prev)
-              }
-              aria-label={
-                showPassword
-                  ? "Hide password"
-                  : "Show password"
-              }
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
             >
-              {showPassword ? (
-                <LuEye />
-              ) : (
-                <LuEyeOff />
-              )}
+              {showPassword ? <LuEye /> : <LuEyeOff />}
             </button>
           </div>
 
           {errors.password && (
-            <p className={styles.error}>
-              {errors.password.message}
-            </p>
+            <p className={styles.error}>{errors.password.message}</p>
           )}
         </div>
 
-        {firebaseError && (
-          <p className={styles.error}>
-            {firebaseError}
-          </p>
-        )}
+        {firebaseError && <p className={styles.error}>{firebaseError}</p>}
 
         <ButtonLink
           as="button"

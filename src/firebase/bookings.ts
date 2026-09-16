@@ -1,8 +1,4 @@
-import {
-  push,
-  ref,
-  set,
-} from "firebase/database";
+import { push, ref, set } from "firebase/database";
 
 import { database } from "./firebase";
 
@@ -16,9 +12,7 @@ interface BookingData {
   phone: string;
 }
 
-export const createBooking = async (
-  booking: BookingData
-) => {
+export const createBooking = async (booking: BookingData) => {
   const bookingsRef = ref(database, "bookings");
 
   const newBookingRef = push(bookingsRef);

@@ -7,11 +7,7 @@ interface ContainerProps {
 }
 
 const Container = ({ children, className = "" }: ContainerProps) => {
-  return (
-    <div className={`${styles.container} ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={`${styles.container} ${className}`}>{children}</div>;
 };
 
 export default Container;

@@ -29,9 +29,7 @@ const FilterSelect = ({
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const selectedOption = options.find(
-    (option) => option.value === value
-  );
+  const selectedOption = options.find((option) => option.value === value);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -43,57 +41,35 @@ const FilterSelect = ({
       }
     };
 
-    document.addEventListener(
-      "mousedown",
-      handleOutsideClick
-    );
+    document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleOutsideClick
-      );
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
 
   return (
-    <div
-      ref={wrapperRef}
-      className={`${styles.wrapper} ${className}`}
-    >
-      <p className={styles.label}>
-        {label}
-      </p>
+    <div ref={wrapperRef} className={`${styles.wrapper} ${className}`}>
+      <p className={styles.label}>{label}</p>
 
       <button
         type="button"
-        className={`${styles.trigger} ${
-          isOpen ? styles.triggerOpen : ""
-        }`}
+        className={`${styles.trigger} ${isOpen ? styles.triggerOpen : ""}`}
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         disabled={options.length === 0}
       >
-        <span>
-          {selectedOption?.label ?? placeholder}
-        </span>
+        <span>{selectedOption?.label ?? placeholder}</span>
 
         <IoChevronDown
-          className={`${styles.icon} ${
-            isOpen ? styles.iconOpen : ""
-          }`}
+          className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}
         />
       </button>
 
       {isOpen && options.length > 0 && (
-        <ul
-          className={`${styles.menu} ${
-            isOpen ? styles.menuOpen : ""
-          }`}
-        >
+        <ul className={`${styles.menu} ${isOpen ? styles.menuOpen : ""}`}>
           {options.map((option) => {
-            const isSelected =
-              option.value === value;
+            const isSelected = option.value === value;
 
             return (
               <li key={option.value}>

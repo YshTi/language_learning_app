@@ -1,4 +1,4 @@
-import loaderImage from "../../assets/loader.png";
+import loaderImage from "../../assets/loader.webp";
 
 import styles from "./Loader.module.css";
 
@@ -17,21 +17,11 @@ const Loader = ({ size = 220 }: LoaderProps) => {
       role="status"
       aria-label="Loading"
     >
-      <img
-        src={loaderImage}
-        alt=""
-        className={styles.backgroundImage}
-      />
+      <img src={loaderImage} alt="" className={styles.backgroundImage} />
 
-      <img
-        src={loaderImage}
-        alt=""
-        className={styles.fillImage}
-      />
+      <img src={loaderImage} alt="" className={styles.fillImage} />
 
-      <span className={styles.visuallyHidden}>
-        Loading...
-      </span>
+      <span className={styles.visuallyHidden}>Loading...</span>
     </div>
   );
 };
