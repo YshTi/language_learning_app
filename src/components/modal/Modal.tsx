@@ -1,13 +1,19 @@
 import { useEffect, type ReactNode } from "react";
-import styles from "./Modal.module.css";
 import { IoClose } from "react-icons/io5";
+
+import styles from "./Modal.module.css";
 
 interface ModalProps {
   children: ReactNode;
   onClose: () => void;
+  className?: string;
 }
 
-const Modal = ({ children, onClose }: ModalProps) => {
+const Modal = ({
+  children,
+  onClose,
+  className = "",
+}: ModalProps) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -39,7 +45,7 @@ const Modal = ({ children, onClose }: ModalProps) => {
       className={styles.backdrop}
       onClick={handleBackdropClick}
     >
-      <div className={styles.modal}>
+      <div className={`${styles.modal} ${className}`}>
         <button
           type="button"
           className={styles.closeButton}

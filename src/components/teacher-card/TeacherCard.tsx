@@ -15,27 +15,34 @@ import {
 } from "../../firebase/favorites";
 
 import ButtonLink from "../buttons/Button";
+import Modal from "../modal/Modal";
+import BookTrialForm from "../book-trial/BookTrialForm";
 
 import styles from "./TeacherCard.module.css";
 
 interface TeacherCardProps {
   teacher: Teacher;
   selectedLevel?: string;
-  onBookTrial?: () => void;
+  selectedLanguage?: string;
 }
 
 const TeacherCard = ({
   teacher,
   selectedLevel = "",
-  onBookTrial,
+  selectedLanguage = "",
 }: TeacherCardProps) => {
   const { user } = useAuth();
 
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] =
+    useState(false);
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] =
+    useState(false);
 
   const [isFavoriteLoading, setIsFavoriteLoading] =
+    useState(false);
+
+  const [isBookingOpen, setIsBookingOpen] =
     useState(false);
 
   useEffect(() => {
@@ -103,245 +110,264 @@ const TeacherCard = ({
   };
 
   return (
-    <article className={styles.card}>
-      <div className={styles.avatarWrapper}>
-        <img
-          src={teacher.avatar_url}
-          alt={`${teacher.name} ${teacher.surname}`}
-          className={styles.avatar}
-        />
+    <>
+      <article className={styles.card}>
+        <div className={styles.avatarWrapper}>
+          <img
+            src={teacher.avatar_url}
+            alt={`${teacher.name} ${teacher.surname}`}
+            className={styles.avatar}
+          />
 
-        <span
-          className={styles.onlineIndicator}
-        />
-      </div>
-
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <div>
-            <p className={styles.label}>
-              Languages
-            </p>
-
-            <h2 className={styles.name}>
-              {teacher.name}{" "}
-              {teacher.surname}
-            </h2>
-          </div>
-
-          <div className={styles.teacherStats}>
-            <div className={styles.stat}>
-              <FiBookOpen />
-
-              <span>Lessons online</span>
-            </div>
-
-            <div className={styles.stat}>
-              <span>
-                Lessons done:{" "}
-                {teacher.lessons_done}
-              </span>
-            </div>
-
-            <div className={styles.stat}>
-              <FaStar
-                className={styles.starIcon}
-              />
-
-              <span>
-                Rating: {teacher.rating}
-              </span>
-            </div>
-
-            <div className={styles.stat}>
-              <span>
-                Price / 1 hour:{" "}
-                <strong
-                  className={styles.price}
-                >
-                  {teacher.price_per_hour}$
-                </strong>
-              </span>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            className={styles.favoriteButton}
-            onClick={handleToggleFavorite}
-            disabled={isFavoriteLoading}
-            aria-label={
-              isFavorite
-                ? "Remove teacher from favorites"
-                : "Add teacher to favorites"
-            }
-          >
-            {isFavorite ? (
-              <FaHeart
-                className={styles.favoriteActive}
-              />
-            ) : (
-              <FaRegHeart />
-            )}
-          </button>
+          <span
+            className={styles.onlineIndicator}
+          />
         </div>
 
-        <div className={styles.details}>
-          <p className={styles.infoRow}>
-            <span
-              className={styles.detailLabel}
-            >
-              Speaks:
-            </span>{" "}
-            <span className={styles.languages}>
-              {teacher.languages.join(", ")}
-            </span>
-          </p>
-
-          <p className={styles.infoRow}>
-            <span
-              className={styles.detailLabel}
-            >
-              Lesson Info:
-            </span>{" "}
-            {teacher.lesson_info}
-          </p>
-
-          <p className={styles.infoRow}>
-            <span
-              className={styles.detailLabel}
-            >
-              Conditions:
-            </span>{" "}
-            {teacher.conditions.join(" ")}
-          </p>
-
-          {!isExpanded && (
-            <button
-              type="button"
-              className={styles.readMore}
-              onClick={() =>
-                setIsExpanded(true)
-              }
-            >
-              Read more
-            </button>
-          )}
-
-          {isExpanded && (
-            <div
-              className={
-                styles.expandedContent
-              }
-            >
-              <p
-                className={
-                  styles.experience
-                }
-              >
-                {teacher.experience}
+        <div className={styles.content}>
+          <div className={styles.header}>
+            <div>
+              <p className={styles.label}>
+                Languages
               </p>
 
-              <div
-                className={styles.reviews}
+              <h2 className={styles.name}>
+                {teacher.name}{" "}
+                {teacher.surname}
+              </h2>
+            </div>
+
+            <div className={styles.teacherStats}>
+              <div className={styles.stat}>
+                <FiBookOpen />
+
+                <span>Lessons online</span>
+              </div>
+
+              <div className={styles.stat}>
+                <span>
+                  Lessons done:{" "}
+                  {teacher.lessons_done}
+                </span>
+              </div>
+
+              <div className={styles.stat}>
+                <FaStar
+                  className={styles.starIcon}
+                />
+
+                <span>
+                  Rating: {teacher.rating}
+                </span>
+              </div>
+
+              <div className={styles.stat}>
+                <span>
+                  Price / 1 hour:{" "}
+                  <strong
+                    className={styles.price}
+                  >
+                    {teacher.price_per_hour}$
+                  </strong>
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className={styles.favoriteButton}
+              onClick={handleToggleFavorite}
+              disabled={isFavoriteLoading}
+              aria-label={
+                isFavorite
+                  ? "Remove teacher from favorites"
+                  : "Add teacher to favorites"
+              }
+            >
+              {isFavorite ? (
+                <FaHeart
+                  className={styles.favoriteActive}
+                />
+              ) : (
+                <FaRegHeart />
+              )}
+            </button>
+          </div>
+
+          <div className={styles.details}>
+            <p className={styles.infoRow}>
+              <span
+                className={styles.detailLabel}
               >
-                {teacher.reviews.map(
-                  (review, index) => (
-                    <div
-                      className={
-                        styles.review
-                      }
-                      key={`${review.reviewer_name}-${index}`}
-                    >
+                Speaks:
+              </span>{" "}
+              <span className={styles.languages}>
+                {teacher.languages.join(", ")}
+              </span>
+            </p>
+
+            <p className={styles.infoRow}>
+              <span
+                className={styles.detailLabel}
+              >
+                Lesson Info:
+              </span>{" "}
+              {teacher.lesson_info}
+            </p>
+
+            <p className={styles.infoRow}>
+              <span
+                className={styles.detailLabel}
+              >
+                Conditions:
+              </span>{" "}
+              {teacher.conditions.join(" ")}
+            </p>
+
+            {!isExpanded && (
+              <button
+                type="button"
+                className={styles.readMore}
+                onClick={() =>
+                  setIsExpanded(true)
+                }
+              >
+                Read more
+              </button>
+            )}
+
+            {isExpanded && (
+              <div
+                className={
+                  styles.expandedContent
+                }
+              >
+                <p
+                  className={
+                    styles.experience
+                  }
+                >
+                  {teacher.experience}
+                </p>
+
+                <div className={styles.reviews}>
+                  {teacher.reviews.map(
+                    (review, index) => (
                       <div
                         className={
-                          styles.reviewHeader
+                          styles.review
                         }
+                        key={`${review.reviewer_name}-${index}`}
                       >
                         <div
                           className={
-                            styles.reviewAvatar
+                            styles.reviewHeader
                           }
                         >
-                          {review.reviewer_name
-                            .charAt(0)
-                            .toUpperCase()}
-                        </div>
-
-                        <div>
-                          <p
-                            className={
-                              styles.reviewerName
-                            }
-                          >
-                            {
-                              review.reviewer_name
-                            }
-                          </p>
-
                           <div
                             className={
-                              styles.reviewRating
+                              styles.reviewAvatar
                             }
                           >
-                            <FaStar />
+                            {review.reviewer_name
+                              .charAt(0)
+                              .toUpperCase()}
+                          </div>
 
-                            <span>
-                              {review.reviewer_rating.toFixed(
-                                1
-                              )}
-                            </span>
+                          <div>
+                            <p
+                              className={
+                                styles.reviewerName
+                              }
+                            >
+                              {
+                                review.reviewer_name
+                              }
+                            </p>
+
+                            <div
+                              className={
+                                styles.reviewRating
+                              }
+                            >
+                              <FaStar />
+
+                              <span>
+                                {review.reviewer_rating.toFixed(
+                                  1
+                                )}
+                              </span>
+                            </div>
                           </div>
                         </div>
+
+                        <p
+                          className={
+                            styles.reviewComment
+                          }
+                        >
+                          {review.comment}
+                        </p>
                       </div>
-
-                      <p
-                        className={
-                          styles.reviewComment
-                        }
-                      >
-                        {review.comment}
-                      </p>
-                    </div>
-                  )
-                )}
+                    )
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          <ul className={styles.levels}>
-            {teacher.levels.map((level) => {
-              const isActive =
-                selectedLevel === level;
+            <ul className={styles.levels}>
+              {teacher.levels.map((level) => {
+                const isActive =
+                  selectedLevel === level;
 
-              return (
-                <li
-                  key={level}
-                  className={`${styles.level} ${
-                    isActive
-                      ? styles.levelActive
-                      : ""
-                  }`}
-                >
-                  #{level}
-                </li>
-              );
-            })}
-          </ul>
+                return (
+                  <li
+                    key={level}
+                    className={`${styles.level} ${
+                      isActive
+                        ? styles.levelActive
+                        : ""
+                    }`}
+                  >
+                    #{level}
+                  </li>
+                );
+              })}
+            </ul>
 
-          {isExpanded && (
-            <ButtonLink
-              as="button"
-              variant="primary"
-              className={styles.bookButton}
-              onClick={onBookTrial}
-            >
-              Book trial lesson
-            </ButtonLink>
-          )}
+            {isExpanded && (
+              <ButtonLink
+                as="button"
+                variant="primary"
+                className={styles.bookButton}
+                onClick={() =>
+                  setIsBookingOpen(true)
+                }
+              >
+                Book trial lesson
+              </ButtonLink>
+            )}
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+
+      {isBookingOpen && (
+        <Modal
+          onClose={() =>
+            setIsBookingOpen(false)
+          }
+          className={styles.bookingModal}
+        >
+          <BookTrialForm
+            teacher={teacher}
+            selectedLanguage={selectedLanguage}
+            onClose={() =>
+              setIsBookingOpen(false)
+            }
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 

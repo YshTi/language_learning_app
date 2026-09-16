@@ -297,3 +297,7 @@
 
     margin-top: 32px;
 }
+
+.bookingModal {
+    max-width: 600px;
+}

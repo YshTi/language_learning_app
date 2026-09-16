@@ -1,8 +1,8 @@
 import {
+  useEffect,
   useMemo,
   useRef,
   useState,
-  useEffect,
 } from "react";
 
 import Container from "../container/Container";
@@ -50,12 +50,12 @@ const TeacherCatalog = ({
     const uniqueLanguages = [
       ...new Set(
         teachers.flatMap(
-          teacher => teacher.languages
+          (teacher) => teacher.languages
         )
       ),
     ].sort();
 
-    return uniqueLanguages.map(language => ({
+    return uniqueLanguages.map((language) => ({
       label: language,
       value: language,
     }));
@@ -65,19 +65,19 @@ const TeacherCatalog = ({
     const uniqueLevels = [
       ...new Set(
         teachers.flatMap(
-          teacher => teacher.levels
+          (teacher) => teacher.levels
         )
       ),
     ];
 
-    return uniqueLevels.map(level => ({
+    return uniqueLevels.map((level) => ({
       label: level,
       value: level,
     }));
   }, [teachers]);
 
   const filteredTeachers = useMemo(() => {
-    return teachers.filter(teacher => {
+    return teachers.filter((teacher) => {
       const matchesLanguage =
         !language ||
         teacher.languages.includes(language);
@@ -90,14 +90,18 @@ const TeacherCatalog = ({
 
       if (price) {
         const selectedPrice = Number(price);
-        const teacherPrice = teacher.price_per_hour;
+        const teacherPrice =
+          teacher.price_per_hour;
 
         if (selectedPrice === 10) {
-          matchesPrice = teacherPrice <= 10;
+          matchesPrice =
+            teacherPrice <= 10;
         } else {
           matchesPrice =
-            teacherPrice > selectedPrice - 10 &&
-            teacherPrice <= selectedPrice;
+            teacherPrice >
+              selectedPrice - 10 &&
+            teacherPrice <=
+              selectedPrice;
         }
       }
 
@@ -174,7 +178,7 @@ const TeacherCatalog = ({
           firstNewTeacher.id;
       }
 
-      setVisibleCount(previousCount =>
+      setVisibleCount((previousCount) =>
         Math.min(
           previousCount + PAGE_SIZE,
           filteredTeachers.length
@@ -204,7 +208,8 @@ const TeacherCatalog = ({
         block: "start",
       });
 
-      pendingScrollTeacherId.current = null;
+      pendingScrollTeacherId.current =
+        null;
     }
   }, [visibleTeachers]);
 
@@ -215,53 +220,82 @@ const TeacherCatalog = ({
 
   return (
     <main className={styles.page}>
-      <Container className={styles.teachersContainer}>
+      <Container
+        className={styles.teachersContainer}
+      >
         <Filters
           language={language}
           level={level}
           price={price}
           languageOptions={languageOptions}
           levelOptions={levelOptions}
-          onLanguageChange={handleLanguageChange}
-          onLevelChange={handleLevelChange}
-          onPriceChange={handlePriceChange}
-          hasActiveFilters={hasActiveFilters}
-          onReset={handleResetFilters}
+          onLanguageChange={
+            handleLanguageChange
+          }
+          onLevelChange={
+            handleLevelChange
+          }
+          onPriceChange={
+            handlePriceChange
+          }
+          hasActiveFilters={
+            hasActiveFilters
+          }
+          onReset={
+            handleResetFilters
+          }
         />
 
         {isLoading ? (
-          <div className={styles.loaderWrapper}>
+          <div
+            className={
+              styles.loaderWrapper
+            }
+          >
             <Loader size={120} />
           </div>
         ) : (
           <>
             <div className={styles.cards}>
               {visibleTeachers.length > 0 ? (
-                visibleTeachers.map(teacher => (
-                  <div
-                    key={teacher.id}
-                    data-teacher-id={teacher.id}
-                    className={
-                      styles.teacherCardWrapper
-                    }
-                  >
-                    <TeacherCard
-                      teacher={teacher}
-                      selectedLevel={level}
-                    />
-                  </div>
-                ))
+                visibleTeachers.map(
+                  (teacher) => (
+                    <div
+                      key={teacher.id}
+                      data-teacher-id={
+                        teacher.id
+                      }
+                      className={
+                        styles.teacherCardWrapper
+                      }
+                    >
+                      <TeacherCard
+                        teacher={teacher}
+                        selectedLevel={level}
+                        selectedLanguage={
+                          language
+                        }
+                      />
+                    </div>
+                  )
+                )
               ) : (
-                <p className={styles.empty}>
+                <p
+                  className={styles.empty}
+                >
                   {emptyMessage}
                 </p>
               )}
             </div>
 
             <LoadMore
-              isLoading={isLoadingMore}
+              isLoading={
+                isLoadingMore
+              }
               hasMore={hasMore}
-              onLoadMore={handleLoadMore}
+              onLoadMore={
+                handleLoadMore
+              }
             />
           </>
         )}

@@ -18,17 +18,48 @@ const passwordRule = yup
     "Password must contain at least one number or special character"
   );
 
+const nameRule = yup
+  .string()
+  .trim()
+  .required("Name is required");
+
+const fullNameRule = yup
+  .string()
+  .trim()
+  .required("Full name is required");
+
+const phoneRule = yup
+  .string()
+  .trim()
+  .required("Phone number is required")
+  .matches(
+    /^\+?[0-9\s()-]{7,20}$/,
+    "Enter a valid phone number"
+  );
+
+const languageRule = yup
+  .string()
+  .required("Please choose a language");
+
+const reasonRule = yup
+  .string()
+  .required("Please choose a reason for learning");
+
 export const loginSchema = yup.object({
   email: emailRule,
   password: passwordRule,
 });
 
 export const registerSchema = yup.object({
-  name: yup
-    .string()
-    .trim()
-    .required("Name is required"),
-
+  name: nameRule,
   email: emailRule,
   password: passwordRule,
+});
+
+export const bookingSchema = yup.object({
+  language: languageRule,
+  reason: reasonRule,
+  name: fullNameRule,
+  email: emailRule,
+  phone: phoneRule,
 });
