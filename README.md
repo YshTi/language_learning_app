@@ -101,7 +101,7 @@ The Teachers page displays a list of language teachers.
 
 Initially, 4 teacher cards are displayed.
 
-The "Load more" button loads the next portion of teachers.
+The "Load more" button requests the next portion of 4 teachers from Firebase Realtime Database.
 
 Users can filter teachers by:
 
@@ -245,6 +245,7 @@ src/
 │   ├── login/
 │   ├── logo/
 │   ├── modal/
+|   ├── private-route/
 │   ├── register/
 │   ├── teacher-card/
 │   └── teacher-catalog/
