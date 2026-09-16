@@ -17,6 +17,21 @@ const FavoritesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Favorite Teachers | LearnLingo";
+
+    const metaDescription = document.querySelector(
+      'meta[name="description"]',
+    );
+
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "View and manage your favorite language teachers on LearnLingo.",
+      );
+    }
+  }, []);
+  
+  useEffect(() => {
     if (!user) {
       return;
     }

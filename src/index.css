@@ -103,11 +103,3 @@ img {
   display: block;
   max-width: 100%;
 }
-
-.appLoader {
-  min-height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}

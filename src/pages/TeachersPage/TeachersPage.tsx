@@ -6,6 +6,7 @@ import { getAllTeachers, getTeachersPage } from "../../firebase/teachers";
 
 import type { Teacher } from "../../types/teacher";
 
+
 const PAGE_SIZE = 4;
 
 const TeachersPage = () => {
@@ -19,6 +20,21 @@ const TeachersPage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    document.title = "Find Language Teachers | LearnLingo";
+
+    const metaDescription = document.querySelector(
+      'meta[name="description"]',
+    );
+
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "Browse and filter online language teachers by language, level, and lesson price.",
+      );
+    }
+  }, []);
+  
   useEffect(() => {
     const loadInitialTeachers = async () => {
       try {

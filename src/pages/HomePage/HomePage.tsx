@@ -1,9 +1,26 @@
+import { useEffect } from "react";
+
 import Container from "../../components/container/Container";
 import ButtonLink from "../../components/buttons/Button";
 
 import styles from "./HomePage.module.css";
 
 const HomePage = () => {
+  useEffect(() => {
+    document.title = "LearnLingo | Online Language Tutors";
+
+    const metaDescription = document.querySelector(
+      'meta[name="description"]',
+    );
+
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "LearnLingo helps users find online language tutors, compare teachers, save favorites, and book trial lessons.",
+      );
+    }
+  }, []);
+
   return (
     <main className={styles.home}>
       <Container className={styles.homeContainer}>
@@ -35,12 +52,17 @@ const HomePage = () => {
               src="/images/teacher.webp"
               alt="Online language teacher"
               className={styles.teacherImage}
+              fetchPriority="high"
+              width={299}
+              height={353}
             />
 
             <img
               src="/images/laptop.webp"
               alt="Laptop"
               className={styles.laptopImage}
+              width={360}
+              height={176}
             />
           </div>
         </div>
