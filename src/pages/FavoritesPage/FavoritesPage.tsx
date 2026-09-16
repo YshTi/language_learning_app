@@ -19,9 +19,7 @@ const FavoritesPage = () => {
   useEffect(() => {
     document.title = "Favorite Teachers | LearnLingo";
 
-    const metaDescription = document.querySelector(
-      'meta[name="description"]',
-    );
+    const metaDescription = document.querySelector('meta[name="description"]');
 
     if (metaDescription) {
       metaDescription.setAttribute(
@@ -30,7 +28,7 @@ const FavoritesPage = () => {
       );
     }
   }, []);
-  
+
   useEffect(() => {
     if (!user) {
       return;

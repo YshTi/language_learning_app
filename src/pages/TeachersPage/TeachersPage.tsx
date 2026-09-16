@@ -6,7 +6,6 @@ import { getAllTeachers, getTeachersPage } from "../../firebase/teachers";
 
 import type { Teacher } from "../../types/teacher";
 
-
 const PAGE_SIZE = 4;
 
 const TeachersPage = () => {
@@ -23,9 +22,7 @@ const TeachersPage = () => {
   useEffect(() => {
     document.title = "Find Language Teachers | LearnLingo";
 
-    const metaDescription = document.querySelector(
-      'meta[name="description"]',
-    );
+    const metaDescription = document.querySelector('meta[name="description"]');
 
     if (metaDescription) {
       metaDescription.setAttribute(
@@ -34,7 +31,7 @@ const TeachersPage = () => {
       );
     }
   }, []);
-  
+
   useEffect(() => {
     const loadInitialTeachers = async () => {
       try {

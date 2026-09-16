@@ -9,9 +9,7 @@ const HomePage = () => {
   useEffect(() => {
     document.title = "LearnLingo | Online Language Tutors";
 
-    const metaDescription = document.querySelector(
-      'meta[name="description"]',
-    );
+    const metaDescription = document.querySelector('meta[name="description"]');
 
     if (metaDescription) {
       metaDescription.setAttribute(
