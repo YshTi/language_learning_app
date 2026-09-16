@@ -252,7 +252,7 @@ const TeacherCatalog = ({
               styles.loaderWrapper
             }
           >
-            <Loader size={120} />
+            <Loader size={220} />
           </div>
         ) : (
           <>

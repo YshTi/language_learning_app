@@ -256,15 +256,14 @@ const BookTrialForm = ({
         </div>
 
         <ButtonLink
-          as="button"
-          type="submit"
-          variant="primary"
-          disabled={isSubmitting}
-          className={styles.submitButton}
-        >
-          {isSubmitting
-            ? "Booking..."
-            : "Book"}
+            as="button"
+            type="submit"
+            variant="primary"
+            disabled={isSubmitting}
+            isLoading={isSubmitting}
+            className={styles.submitButton}
+            >
+            Book
         </ButtonLink>
       </form>
     </>

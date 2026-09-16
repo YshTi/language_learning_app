@@ -176,11 +176,10 @@ const RegisterForm = ({ onClose }: RegisterFormProps) => {
           type="submit"
           variant="primary"
           disabled={isSubmitting}
+          isLoading={isSubmitting}
           className={styles.submitButton}
         >
-          {isSubmitting
-            ? "Creating account..."
-            : "Sign Up"}
+          Sign Up
         </ButtonLink>
       </form>
     </>

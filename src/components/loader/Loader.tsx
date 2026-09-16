@@ -6,7 +6,7 @@ interface LoaderProps {
   size?: number;
 }
 
-const Loader = ({ size = 120 }: LoaderProps) => {
+const Loader = ({ size = 220 }: LoaderProps) => {
   return (
     <div
       className={styles.loader}

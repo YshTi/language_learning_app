@@ -118,9 +118,10 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
           type="submit"
           variant="primary"
           disabled={isSubmitting}
+          isLoading={isSubmitting}
           className={styles.submitButton}
         >
-          {isSubmitting ? "Logging in..." : "Log In"}
+          Log In
         </ButtonLink>
       </form>
     </>
