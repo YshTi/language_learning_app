@@ -21,7 +21,7 @@ const LoadMore = ({
   return (
     <div className={styles.wrapper}>
       {isLoading ? (
-        <Loader size={70} />
+        <Loader size={220} />
       ) : (
         <ButtonLink
           as="button"

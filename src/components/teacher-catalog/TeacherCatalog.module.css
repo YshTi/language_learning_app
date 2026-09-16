@@ -1,20 +1,21 @@
-.teachersPage{
-    min-height: calc(100vh - 88px);
+.page {
+    min-height: 100vh;
+    padding: 40px 0;
 
-    padding-bottom: 96px;
     background-color: var(--background-secondary);
 }
 
 .teachersContainer {
-   display: flex;
-   flex-direction: column;
-   
+    display: flex;
+    flex-direction: column;
+
     max-width: 1184px;
 }
 
 .cards {
     display: flex;
     flex-direction: column;
+
     gap: 32px;
 }
 
@@ -28,4 +29,14 @@
 
 .teacherCardWrapper {
     scroll-margin-top: 100px;
+}
+
+.empty {
+    padding: 48px 0;
+
+    text-align: center;
+
+    color: var(--text-secondary);
+
+    font-size: 18px;
 }
