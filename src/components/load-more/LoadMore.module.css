@@ -1,0 +1,10 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 40px;
+}
+
+.button {
+    min-width: 183px;
+}

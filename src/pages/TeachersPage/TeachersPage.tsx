@@ -3,8 +3,10 @@ import { useEffect, useMemo, useState } from "react";
 import Container from "../../components/container/Container";
 import Filters from "../../components/filters/Filters";
 import TeacherCard from "../../components/teacher-card/TeacherCard";
+import Loader from "../../components/loader/Loader";
+import LoadMore from "../../components/load-more/LoadMore";
 
-import { getTeachers } from "../../firebase/teachers";
+import { getTeachersPage } from "../../firebase/teachers";
 
 import type { Teacher } from "../../types/teacher";
 
@@ -17,23 +19,75 @@ const TeachersPage = () => {
   const [level, setLevel] = useState("");
   const [price, setPrice] = useState("");
 
+  const [lastKey, setLastKey] =
+    useState<string | null>(null);
+
+  const [hasMore, setHasMore] =
+    useState(true);
+
+  const [isInitialLoading, setIsInitialLoading] =
+    useState(true);
+
+  const [isLoadingMore, setIsLoadingMore] =
+    useState(false);
+
   useEffect(() => {
-    const loadTeachers = async () => {
+    const loadInitialTeachers = async () => {
       try {
-        const data = await getTeachers();
-        setTeachers(data);
+        setIsInitialLoading(true);
+
+        const result = await getTeachersPage();
+
+        setTeachers(result.teachers);
+        setLastKey(result.lastKey);
+        setHasMore(result.hasMore);
       } catch (error) {
-        console.error("Failed to load teachers:", error);
+        console.error(
+          "Failed to load teachers:",
+          error
+        );
+      } finally {
+        setIsInitialLoading(false);
       }
     };
 
-    loadTeachers();
+    loadInitialTeachers();
   }, []);
+
+  const handleLoadMore = async () => {
+    if (!lastKey || isLoadingMore) {
+      return;
+    }
+
+    try {
+      setIsLoadingMore(true);
+
+      const result =
+        await getTeachersPage(lastKey);
+
+      setTeachers((prev) => [
+        ...prev,
+        ...result.teachers,
+      ]);
+
+      setLastKey(result.lastKey);
+      setHasMore(result.hasMore);
+    } catch (error) {
+      console.error(
+        "Failed to load more teachers:",
+        error
+      );
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
 
   const languageOptions = useMemo(() => {
     const uniqueLanguages = [
       ...new Set(
-        teachers.flatMap((teacher) => teacher.languages)
+        teachers.flatMap(
+          (teacher) => teacher.languages
+        )
       ),
     ].sort();
 
@@ -46,7 +100,9 @@ const TeachersPage = () => {
   const levelOptions = useMemo(() => {
     const uniqueLevels = [
       ...new Set(
-        teachers.flatMap((teacher) => teacher.levels)
+        teachers.flatMap(
+          (teacher) => teacher.levels
+        )
       ),
     ];
 
@@ -70,14 +126,19 @@ const TeachersPage = () => {
         let matchesPrice = true;
 
         if (price) {
-          const selectedPrice = Number(price);
-          const teacherPrice = teacher.price_per_hour;
+          const selectedPrice =
+            Number(price);
+
+          const teacherPrice =
+            teacher.price_per_hour;
 
           if (selectedPrice === 10) {
-            matchesPrice = teacherPrice <= 10;
+            matchesPrice =
+              teacherPrice <= 10;
           } else {
             matchesPrice =
-              teacherPrice > selectedPrice - 10 &&
+              teacherPrice >
+                selectedPrice - 10 &&
               teacherPrice <= selectedPrice;
           }
         }
@@ -90,9 +151,15 @@ const TeachersPage = () => {
       })
       .sort(
         (a, b) =>
-          a.price_per_hour - b.price_per_hour
+          a.price_per_hour -
+          b.price_per_hour
       );
-  }, [teachers, language, level, price]);
+  }, [
+    teachers,
+    language,
+    level,
+    price,
+  ]);
 
   const hasActiveFilters =
     Boolean(language) ||
@@ -121,21 +188,37 @@ const TeachersPage = () => {
           onReset={handleResetFilters}
         />
 
-        <div className={styles.cards}>
-          {filteredTeachers.length > 0 ? (
-            filteredTeachers.map((teacher) => (
-              <TeacherCard
-                key={teacher.id}
-                teacher={teacher}
-                selectedLevel={level}
-              />
-            ))
-          ) : (
-            <p className={styles.empty}>
-              No teachers match the selected filters.
-            </p>
-          )}
-        </div>
+        {isInitialLoading ? (
+          <div className={styles.loaderWrapper}>
+            <Loader size={120} />
+          </div>
+        ) : (
+          <>
+            <div className={styles.cards}>
+              {filteredTeachers.length > 0 ? (
+                filteredTeachers.map(
+                  (teacher) => (
+                    <TeacherCard
+                      key={teacher.id}
+                      teacher={teacher}
+                      selectedLevel={level}
+                    />
+                  )
+                )
+              ) : (
+                <p className={styles.empty}>
+                  No teachers match the selected filters.
+                </p>
+              )}
+            </div>
+
+            <LoadMore
+              isLoading={isLoadingMore}
+              hasMore={hasMore}
+              onLoadMore={handleLoadMore}
+            />
+          </>
+        )}
       </Container>
     </main>
   );

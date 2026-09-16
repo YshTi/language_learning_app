@@ -1,0 +1,63 @@
+.loader {
+    position: relative;
+
+    display: inline-block;
+
+    flex-shrink: 0;
+}
+
+.backgroundImage,
+.fillImage {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+.backgroundImage {
+    opacity: 0.12;
+}
+
+.fillImage {
+    opacity: 1;
+
+    animation: fillLoader 1.8s ease-in-out infinite;
+}
+
+@keyframes fillLoader {
+    0% {
+        clip-path: inset(100% 0 0 0);
+    }
+
+    70% {
+        clip-path: inset(0 0 0 0);
+    }
+
+    85% {
+        clip-path: inset(0 0 0 0);
+    }
+
+    100% {
+        clip-path: inset(100% 0 0 0);
+    }
+}
+
+.visuallyHidden {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+
+    border: 0;
+}
