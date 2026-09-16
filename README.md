@@ -245,7 +245,7 @@ src/
 │   ├── login/
 │   ├── logo/
 │   ├── modal/
-|   ├── private-route/
+│   ├── private-route/
 │   ├── register/
 │   ├── teacher-card/
 │   └── teacher-catalog/

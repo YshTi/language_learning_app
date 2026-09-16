@@ -23,15 +23,9 @@ function App() {
 
       <Suspense fallback={null}>
         <Routes>
-          <Route
-            path="/"
-            element={<HomePage />}
-          />
+          <Route path="/" element={<HomePage />} />
 
-          <Route
-            path="/teachers"
-            element={<TeachersPage />}
-          />
+          <Route path="/teachers" element={<TeachersPage />} />
 
           <Route
             path="/favorites"
