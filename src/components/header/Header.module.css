@@ -98,3 +98,36 @@
 
   color: var(--text-primary);
 }
+
+.menuButton {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+
+  .headerContainer {
+    padding: 0 24px;
+  }
+
+  .nav,
+  .actions {
+    display: none;
+  }
+
+  .menuButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    padding: 0;
+
+    border: none;
+    background-color: transparent;
+
+    color: var(--text-primary);
+    font-size: 28px;
+  }
+}

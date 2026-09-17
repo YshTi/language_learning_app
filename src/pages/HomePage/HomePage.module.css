@@ -136,3 +136,193 @@
 .wideLabel {
   width: 96px;
 }
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .home {
+    padding-top: 24px;
+  }
+  
+  .homeContainer {
+    max-width: 900px;
+    padding: 0 32px;
+  }
+
+  .heroTop {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .heroText {
+    min-height: auto;
+    padding: 56px 40px;
+  }
+
+  .title {
+    font-size: 42px;
+  }
+
+  .heroImage {
+    min-height: 420px;
+  }
+
+  .statisticsList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 40px;
+    padding: 32px 40px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .home {
+    padding-top: 24px;
+  }
+
+  .homeContainer {
+    max-width: clamp(900px, 90vw, 1309px);
+  }
+  
+  .heroTop {
+    grid-template-columns: 1.27fr 1fr;
+    gap: 24px;
+  }
+
+  .heroText {
+    padding: 64px 48px;
+  }
+
+  .title {
+    font-size: 44px;
+  }
+
+  .statisticsList {
+    padding: 40px 80px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .home {
+    width: 100%;
+    padding: 16px 0 24px;
+  }
+
+  .homeContainer {
+    width: 100%;
+    max-width: none;
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .heroTop {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+
+    width: 100%;
+    min-width: 0;
+
+    gap: 16px;
+  }
+
+  .heroText {
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+
+    padding: 32px 20px;
+
+    border-radius: 20px;
+  }
+
+  .title {
+    margin-bottom: 20px;
+
+    font-size: clamp(28px, 9vw, 34px);
+    line-height: 1.1;
+  }
+
+  .highlight {
+    padding: 0 5px;
+
+    border-radius: 6px;
+  }
+
+  .description {
+    width: 100%;
+    max-width: none;
+
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .startButton {
+    width: 100%;
+    max-width: none;
+
+    margin-top: 24px;
+
+    align-self: stretch;
+  }
+
+  .heroImage {
+    width: 100%;
+    min-width: 0;
+    min-height: 320px;
+
+    border-radius: 20px;
+  }
+
+  .teacherImage {
+    width: min(200px, 70%);
+    height: auto;
+
+    top: 36px;
+  }
+
+  .laptopImage {
+    width: min(260px, 90%);
+    height: auto;
+  }
+
+  .statistics {
+    width: 100%;
+    min-height: auto;
+
+    border-radius: 20px;
+  }
+
+  .statisticsList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 24px 16px;
+
+    padding: 24px 20px;
+  }
+
+  .statItem {
+    min-width: 0;
+
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 6px;
+  }
+
+  .statNumber {
+    font-size: 22px;
+    line-height: 1.15;
+  }
+
+  .statLabel,
+  .wideLabel {
+    width: auto;
+
+    font-size: 12px;
+  }
+}

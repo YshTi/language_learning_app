@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { CiLogin, CiLogout } from "react-icons/ci";
+import { IoMenu } from "react-icons/io5";
 
 import Container from "../container/Container";
 import Logo from "../logo/Logo";
@@ -8,6 +9,7 @@ import Modal from "../modal/Modal";
 import LoginForm from "../login/LoginForm";
 import RegisterForm from "../register/RegisterForm";
 import ButtonLink from "../buttons/Button";
+import MobileMenu from "../mobile-menu/MobileMenu";
 
 import { useAuth } from "../../context/useAuth";
 
@@ -18,13 +20,25 @@ const Header = () => {
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
       await logout();
+      setIsMenuOpen(false);
     } catch (error) {
       console.error("Logout failed:", error);
     }
+  };
+
+  const handleOpenLogin = () => {
+    setIsMenuOpen(false);
+    setIsLoginOpen(true);
+  };
+
+  const handleOpenRegister = () => {
+    setIsMenuOpen(false);
+    setIsRegisterOpen(true);
   };
 
   return (
@@ -37,7 +51,9 @@ const Header = () => {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
+                isActive
+                  ? `${styles.navLink} ${styles.active}`
+                  : styles.navLink
               }
             >
               Home
@@ -46,7 +62,9 @@ const Header = () => {
             <NavLink
               to="/teachers"
               className={({ isActive }) =>
-                isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
+                isActive
+                  ? `${styles.navLink} ${styles.active}`
+                  : styles.navLink
               }
             >
               Teachers
@@ -104,8 +122,27 @@ const Header = () => {
               </>
             )}
           </div>
+
+          <button
+            type="button"
+            className={styles.menuButton}
+            onClick={() => setIsMenuOpen(true)}
+            aria-label="Open navigation menu"
+          >
+            <IoMenu />
+          </button>
         </Container>
       </header>
+
+      {isMenuOpen && (
+        <MobileMenu
+          user={user}
+          onClose={() => setIsMenuOpen(false)}
+          onLogin={handleOpenLogin}
+          onRegister={handleOpenRegister}
+          onLogout={handleLogout}
+        />
+      )}
 
       {isLoginOpen && (
         <Modal onClose={() => setIsLoginOpen(false)}>

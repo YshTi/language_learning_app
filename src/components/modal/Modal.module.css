@@ -55,3 +55,35 @@
   width: 32px;
   height: 32px;
 }
+
+@media (max-width: 767px) {
+  .backdrop {
+    padding: 16px;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: none;
+
+    max-height: calc(100vh - 32px);
+
+    margin: 16px 0;
+
+    padding: 48px 20px 32px;
+
+    border-radius: 20px;
+  }
+
+  .closeButton {
+    top: 12px;
+    right: 12px;
+    padding: 4px;
+  }
+
+  .closeIcon {
+    width: 28px;
+    height: 28px;
+  }
+}

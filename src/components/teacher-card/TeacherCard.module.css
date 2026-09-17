@@ -301,3 +301,219 @@
 .bookingModal {
   max-width: 600px;
 }
+
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .card {
+    gap: 28px;
+    min-height: auto;
+    padding: 24px;
+  }
+
+  .avatarWrapper {
+    width: 104px;
+    height: 104px;
+    padding: 8px;
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px 12px;
+    align-items: start;
+  }
+
+  .header> :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .teacherStats {
+    grid-column: 1;
+    grid-row: 2;
+
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 24px;
+    row-gap: 12px;
+
+    margin-left: 0;
+  }
+
+  .stat {
+    padding: 0;
+    border-right: none;
+
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .favoriteButton {
+    grid-column: 2;
+    grid-row: 2;
+
+    align-self: end;
+    justify-self: end;
+
+    margin-bottom: 0;
+  }
+
+  .details {
+    margin-top: 24px;
+  }
+
+  .levels {
+    margin-top: 24px;
+  }
+
+  .bookButton {
+    margin-top: 24px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .card {
+    position: relative;
+
+    flex-direction: column;
+    gap: 20px;
+
+    min-height: auto;
+
+    padding: 20px;
+
+    border-radius: 20px;
+  }
+
+  .avatarWrapper {
+    width: 96px;
+    height: 96px;
+
+    padding: 7px;
+  }
+
+  .onlineIndicator {
+    top: 12px;
+    right: 14px;
+
+    width: 11px;
+    height: 11px;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 16px;
+
+    padding-right: 40px;
+  }
+
+  .label {
+    margin-bottom: 6px;
+
+    font-size: 14px;
+  }
+
+  .name {
+    font-size: 22px;
+  }
+
+  .teacherStats {
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+
+    margin-left: 0;
+  }
+
+  .stat {
+    width: 100%;
+
+    padding: 8px 0;
+
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat:first-child {
+    padding-left: 0;
+  }
+
+  .stat:last-child {
+    border-bottom: none;
+  }
+
+  .favoriteButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    width: 28px;
+    height: 28px;
+  }
+
+  .favoriteButton svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .details {
+    margin-top: 24px;
+  }
+
+  .infoRow {
+    line-height: 1.4;
+  }
+
+  .expandedContent {
+    margin-top: 20px;
+  }
+
+  .experience {
+    margin-bottom: 24px;
+  }
+
+  .reviews {
+    gap: 24px;
+
+    margin-bottom: 24px;
+  }
+
+  .reviewHeader {
+    margin-bottom: 12px;
+  }
+
+  .levels {
+    gap: 8px;
+
+    margin-top: 24px;
+  }
+
+  .level {
+    height: auto;
+    min-height: 32px;
+
+    padding: 7px 10px;
+  }
+
+  .bookButton {
+    width: 100%;
+    min-width: 0;
+
+    margin-top: 24px;
+  }
+
+  .bookingModal {
+    width: 100%;
+    max-width: none;
+  }
+}
